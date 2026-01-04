@@ -3,6 +3,7 @@ from typing import Any
 
 from celery.app.base import Celery
 from celery.app.task import Task
+from celery.local import Proxy
 
 __all__ = (
     "connect_on_app_finalize",
@@ -14,8 +15,8 @@ __all__ = (
     "set_default_app",
 )
 
-current_app: Celery
-current_task: Task[Any, Any]
+current_app: Proxy[Celery]
+current_task: Proxy[Task[Any, Any]]
 
 def get_current_task() -> Task[Any, Any]: ...
 def get_current_app() -> Celery: ...

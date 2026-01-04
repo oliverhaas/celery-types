@@ -15,7 +15,6 @@ import celery.app
 import celery.result
 import kombu
 from celery.app.amqp import AMQP
-from celery.app.beat import Beat as CeleryBeat
 from celery.app.control import Control
 from celery.app.events import Events
 from celery.app.log import Logging
@@ -24,6 +23,7 @@ from celery.app.routes import Router
 from celery.app.task import Context
 from celery.app.task import Task as CeleryTask
 from celery.app.utils import Settings
+from celery.apps.beat import Beat as CeleryBeat
 from celery.apps.worker import Worker as CeleryWorker
 from celery.backends.base import Backend
 from celery.canvas import Signature, chord
@@ -68,7 +68,7 @@ class Celery(Generic[_T_Global]):
     user_options: dict[str, Any] | None
     builtin_fixups: set[str]
 
-    # Signals (always initialized in __init__)
+    # Signals (always set on instances in __init__)
     on_configure: Signal
     on_after_configure: Signal
     on_after_finalize: Signal

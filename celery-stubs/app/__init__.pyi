@@ -8,7 +8,6 @@ from typing import (
     overload,
 )
 
-from celery.app import beat as beat
 from celery.app import control as control
 from celery.app import events as events
 from celery.app import task as task

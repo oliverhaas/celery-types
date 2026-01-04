@@ -203,17 +203,26 @@ class Signature(dict[str, Any], Generic[_R_co]):
     def type(self) -> Any: ...
     @property
     def app(self) -> Celery: ...
+    @property
     def AsyncResult(self) -> celery.result.AsyncResult[_R_co]: ...
-    id: str | None
-    parent_id: str | None
-    root_id: str | None
-    task: str | None
-    args: tuple[Any, ...]
-    kwargs: dict[str, Any]
-    options: dict[str, Any]
-    subtask_type: Any
-    chord_size: int | None
-    immutable: bool
+    @property
+    def id(self) -> str | None: ...
+    @property
+    def parent_id(self) -> str | None: ...
+    @property
+    def root_id(self) -> str | None: ...
+    @property
+    def task(self) -> str | None: ...
+    @property
+    def args(self) -> tuple[Any, ...]: ...
+    @property
+    def kwargs(self) -> dict[str, Any]: ...
+    @property
+    def options(self) -> dict[str, Any]: ...
+    @property
+    def subtask_type(self) -> Any: ...
+    @property
+    def immutable(self) -> bool: ...
 
 class _chain(Signature[Any]):
     def __init__(
@@ -329,11 +338,20 @@ class chunks(Signature[Any]):
         n: int,
         app: Celery | None = ...,
     ) -> list[Any]: ...
+    @override
+    def __call__(self, **options: Any) -> Any: ...  # type: ignore[override]
+    @override
+    def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        **opts: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
     def group(self) -> _group: ...
 
 class group(Signature[Any]):
-    tasks: list[Signature[Any]]
-
+    @property
+    def tasks(self) -> list[Signature[Any]]: ...
     @overload
     def __init__(
         self,
@@ -376,6 +394,21 @@ class group(Signature[Any]):
         self, start: float = ..., stop: float | None = ..., step: float = ...
     ) -> group: ...
     @override
+    def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        add_to_parent: bool = ...,
+        producer: kombu.Producer | None = ...,
+        link: Signature[Any] | list[Signature[Any]] | None = ...,
+        link_error: Signature[Any] | list[Signature[Any]] | None = ...,
+        **options: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
+    @override
+    def link(self, sig: Signature[Any]) -> Signature[Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+    @override
+    def link_error(self, sig: Signature[Any]) -> Signature[Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+    @override
     def stamp(
         self,
         visitor: Any = ...,
@@ -388,9 +421,10 @@ class group(Signature[Any]):
 _group = group
 
 class chord(Signature[Any]):
-    tasks: Any
-    body: Any
-
+    @property
+    def tasks(self) -> Any: ...
+    @property
+    def body(self) -> Any: ...
     def __init__(
         self,
         header: Any,
@@ -440,6 +474,28 @@ class chord(Signature[Any]):
         **options: Any,
     ) -> Any: ...
     def __length_hint__(self) -> int: ...
+    @override
+    def apply(  # type: ignore[override]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        propagate: bool = ...,
+        body: Signature[Any] | None = ...,
+        **options: Any,
+    ) -> EagerResult[Any]: ...
+    @override
+    def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        task_id: str | None = ...,
+        producer: kombu.Producer | None = ...,
+        publisher: kombu.Producer | None = ...,
+        connection: kombu.Connection | None = ...,
+        router: Any | None = ...,
+        result_cls: type[celery.result.AsyncResult[Any]] | None = ...,
+        **options: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
     @override
     def stamp(
         self,

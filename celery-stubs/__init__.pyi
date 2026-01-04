@@ -1,14 +1,14 @@
+from types import ModuleType
 from typing import Any, NamedTuple
 
 from celery import execute as execute
-from celery import local
+from celery import local as local
 from celery import messaging as messaging
-from celery._state import current_app, current_task
+from celery._state import current_app as current_app
+from celery._state import current_task as current_task
 from celery.app import bugreport as bugreport
 from celery.app import shared_task
 from celery.app.base import Celery
-from celery.app.log import Logging as log  # noqa: N813  # match runtime
-from celery.app.registry import TaskRegistry as registry  # noqa: N813  # match runtime
 from celery.app.task import Task
 from celery.canvas import (
     Signature,
@@ -20,11 +20,13 @@ from celery.canvas import (
     xmap,
     xstarmap,
 )
-from celery.canvas import (
-    maybe_signature as maybe_signature,
-)
+from celery.canvas import maybe_signature as maybe_signature
 from celery.canvas import signature as subtask
 from celery.utils import uuid
+
+# These are lazy module proxies at runtime
+log: ModuleType
+registry: ModuleType
 
 class version_info_t(NamedTuple):
     major: int

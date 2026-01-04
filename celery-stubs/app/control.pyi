@@ -114,20 +114,11 @@ class Inspect:
     ) -> None | dict[str, dict[str, str]]: ...
 
 class Control:
-    Mailbox: KombuMailbox
+    Mailbox: type[KombuMailbox]
     app: Celery | None
     def __init__(self, app: Celery | None = ...) -> None: ...
-    def inspect(
-        self,
-        destination: _Destination | None = ...,
-        timeout: float = ...,
-        callback: Callable[..., Any] | None = ...,
-        connection: Connection | None = ...,
-        app: Celery | None = ...,
-        limit: int | None = ...,
-        pattern: str | None = ...,
-        matcher: Callable[..., Any] | None = ...,
-    ) -> Inspect: ...
+    @property
+    def inspect(self) -> Inspect: ...
     def purge(self, connection: Connection | None = ...) -> int: ...
     discard_all = purge
     def election(
@@ -140,6 +131,14 @@ class Control:
     def revoke(
         self,
         task_id: str | Sequence[str],
+        destination: _Destination | None = ...,
+        terminate: bool = ...,
+        signal: str = ...,
+        **kwargs: Any,
+    ) -> list[dict[str, _Reply]] | None: ...
+    def revoke_by_stamped_headers(
+        self,
+        headers: Mapping[str, str],
         destination: _Destination | None = ...,
         terminate: bool = ...,
         signal: str = ...,
