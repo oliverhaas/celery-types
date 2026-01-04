@@ -11,6 +11,8 @@ from typing import (
     overload,
 )
 
+__all__ = ("Celery",)
+
 import celery.app
 import celery.result
 import kombu

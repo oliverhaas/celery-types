@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("TaskRegistry",)
+
 from celery.app.task import Task
 from celery.exceptions import NotRegistered
 

@@ -6,6 +6,18 @@ from typing import (
     overload,
 )
 
+__all__ = (
+    "Signature",
+    "chain",
+    "xmap",
+    "xstarmap",
+    "chunks",
+    "group",
+    "chord",
+    "signature",
+    "maybe_signature",
+)
+
 import celery.result
 import kombu
 from celery.app.base import Celery

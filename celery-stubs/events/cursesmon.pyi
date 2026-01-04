@@ -1,0 +1,3 @@
+from typing import Any
+
+def evtop(app: Any | None = None) -> None: ...

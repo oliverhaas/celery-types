@@ -8,6 +8,8 @@ from typing import (
     overload,
 )
 
+__all__ = ("Context", "Task")
+
 import billiard
 import celery
 import celery.result

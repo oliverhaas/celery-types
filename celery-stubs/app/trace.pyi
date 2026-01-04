@@ -1,13 +1,42 @@
 from collections.abc import Callable
 from logging import Logger
-from typing import Any, NamedTuple
+from typing import Any
+
+__all__: tuple[str, ...]
 
 from celery.app.base import Celery
 from celery.app.task import Task
 
-class TraceInfo(NamedTuple):
+class TraceInfo:
     state: str
     retval: Any
+
+    def __init__(self, state: str, retval: Any) -> None: ...
+    def handle_error_state(
+        self,
+        task: Task[..., Any],
+        req: Any,
+        eager: bool = False,
+        call_errbacks: bool = True,
+    ) -> None: ...
+    def handle_failure(
+        self,
+        task: Task[..., Any],
+        req: Any,
+        store_errors: bool = True,
+        call_errbacks: bool = True,
+    ) -> None: ...
+    def handle_ignore(self, task: Task[..., Any], req: Any) -> None: ...
+    def handle_reject(
+        self, task: Task[..., Any], req: Any, requeue: bool = False
+    ) -> None: ...
+    def handle_retry(
+        self,
+        task: Task[..., Any],
+        req: Any,
+        store_errors: bool = True,
+        I: Any = None,
+    ) -> None: ...
 
 def build_tracer(
     name: str,

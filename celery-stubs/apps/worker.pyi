@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("Worker",)
+
 from celery.worker import WorkController
 from typing_extensions import override
 

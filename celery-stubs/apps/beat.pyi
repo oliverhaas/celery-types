@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("Beat",)
+
 from celery.app.base import Celery
 from celery.beat import Service as BeatService
 

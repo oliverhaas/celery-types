@@ -1,0 +1,6 @@
+from datetime import datetime, tzinfo
+from typing import Any
+
+class ParseError(Exception): ...
+
+def parse_iso8601(datestring: str) -> datetime: ...

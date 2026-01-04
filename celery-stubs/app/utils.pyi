@@ -3,6 +3,8 @@ from datetime import tzinfo
 from types import ModuleType
 from typing import Any
 
+__all__ = ("Settings", "appstr", "bugreport", "filter_hidden_settings", "find_app")
+
 from celery.app.base import Celery
 from celery.utils.collections import ConfigurationView
 
