@@ -1,5 +1,4 @@
 # This module is Windows-only and requires msvcrt
-from typing import Any
 
 from billiard.process import BaseProcess
 

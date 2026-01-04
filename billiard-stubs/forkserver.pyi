@@ -1,9 +1,9 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 __all__ = [
+    "connect_to_new_process",
     "ensure_running",
     "get_inherited_fds",
-    "connect_to_new_process",
     "set_forkserver_preload",
 ]
 

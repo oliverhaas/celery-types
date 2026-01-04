@@ -3,11 +3,11 @@ from typing import Any
 __all__ = [
     "_main",
     "freeze_support",
-    "set_executable",
+    "get_command_line",
     "get_executable",
     "get_preparation_data",
-    "get_command_line",
     "import_main_path",
+    "set_executable",
 ]
 
 def get_command_line(**kwds: Any) -> list[str]: ...

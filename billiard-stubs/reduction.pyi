@@ -1,15 +1,16 @@
 import pickle
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 __all__ = [
-    "send_handle",
-    "recv_handle",
-    "ForkingPickler",
-    "register",
-    "dump",
     "DupFd",
-    "sendfds",
+    "ForkingPickler",
+    "dump",
+    "recv_handle",
     "recvfds",
+    "register",
+    "send_handle",
+    "sendfds",
 ]
 
 ForkingPickler: type[pickle.Pickler]

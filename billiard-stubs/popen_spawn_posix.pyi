@@ -1,5 +1,3 @@
-from typing import Any
-
 from billiard.process import BaseProcess
 
 __all__ = ["Popen"]

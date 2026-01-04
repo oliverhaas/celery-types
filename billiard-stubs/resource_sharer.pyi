@@ -1,8 +1,7 @@
-from typing import Any
-
-__all__ = ["stop", "DupFd"]
+__all__ = ["DupFd", "stop"]
 
 class DupFd:
     def __init__(self, fd: int) -> None: ...
     def detach(self) -> int: ...
+
 def stop(timeout: float | None = ...) -> None: ...

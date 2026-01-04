@@ -7,11 +7,11 @@ from multiprocessing.util import is_exiting as is_exiting
 from multiprocessing.util import register_after_fork as register_after_fork
 
 __all__ = [
+    "SUBDEBUG",
+    "SUBWARNING",
     "Finalize",
     "ForkAwareLocal",
     "ForkAwareThreadLock",
-    "SUBDEBUG",
-    "SUBWARNING",
     "debug",
     "get_logger",
     "get_temp_dir",

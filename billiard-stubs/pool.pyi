@@ -3,25 +3,12 @@ from typing import Any
 
 from billiard.common import (
     TERM_SIGNAL,
-    human_status,
-    pickle_loads,
-    reset_signals,
-    restart_state,
 )
-from billiard.compat import get_errno, mem_rss, send_offset
 from billiard.dummy import DummyProcess
-from billiard.einfo import ExceptionInfo
 from billiard.exceptions import (
-    CoroStop,
-    RestartFreqExceeded,
     SoftTimeLimitExceeded,
-    Terminated,
-    TimeLimitExceeded,
-    TimeoutError,
-    WorkerLostError,
 )
-from billiard.util import debug, warning
-from typing_extensions import override
+from typing_extensions import Self, override
 
 # Note: __all__ is not present at runtime
 
@@ -59,7 +46,7 @@ class LaxBoundedSemaphore(threading.Semaphore):
     def __init__(self, value: int = ..., verbose: Any = ...) -> None: ...
     def shrink(self) -> None: ...
     def grow(self) -> None: ...
-    def release(self) -> None: ...  # type: ignore[override]
+    def release(self) -> None: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     def clear(self) -> None: ...
 
 class MaybeEncodingError(Exception):
@@ -180,8 +167,8 @@ class Pool:
         enable_timeouts: bool = ...,
         **kwargs: Any,
     ) -> None: ...
-    def __enter__(self) -> Pool: ...
-    def __exit__(self, *exc_info: Any) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(self, *exc_info: object) -> None: ...
     def shrink(self, n: int = ...) -> None: ...
     def grow(self, n: int = ...) -> None: ...
     def maintain_pool(self) -> None: ...
@@ -312,7 +299,7 @@ class IMapIterator:
 class IMapUnorderedIterator(IMapIterator): ...
 
 class ThreadPool(Pool):
-    Process = DummyProcess
+    Process = DummyProcess  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
     DummyProcess: type[DummyProcess]
     def __init__(
         self,

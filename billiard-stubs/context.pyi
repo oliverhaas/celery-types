@@ -11,17 +11,33 @@ from multiprocessing import (
 from multiprocessing.managers import SyncManager
 from multiprocessing.queues import (
     JoinableQueue as _JoinableQueue,
+)
+from multiprocessing.queues import (
     Queue as _Queue,
+)
+from multiprocessing.queues import (
     SimpleQueue as _SimpleQueue,
 )
 from multiprocessing.sharedctypes import SynchronizedBase
 from multiprocessing.synchronize import (
     Barrier as _Barrier,
+)
+from multiprocessing.synchronize import (
     BoundedSemaphore as _BoundedSemaphore,
+)
+from multiprocessing.synchronize import (
     Condition as _Condition,
+)
+from multiprocessing.synchronize import (
     Event as _Event,
+)
+from multiprocessing.synchronize import (
     Lock as _Lock,
+)
+from multiprocessing.synchronize import (
     RLock as _RLock,
+)
+from multiprocessing.synchronize import (
     Semaphore as _Semaphore,
 )
 from typing import Any
@@ -106,9 +122,7 @@ class BaseContext:
         self, typecode_or_type: str | type[_CData], *args: Any, **kwargs: Any
     ) -> SynchronizedBase[Any]: ...
     @staticmethod
-    def active_children(
-        _cleanup: Callable[[], None] = ...
-    ) -> list[BaseProcess]: ...
+    def active_children(_cleanup: Callable[[], None] = ...) -> list[BaseProcess]: ...
     def allow_connection_pickling(self) -> None: ...
     def cpu_count(self) -> int: ...
     @staticmethod

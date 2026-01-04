@@ -2,7 +2,7 @@ from queue import Empty as Empty
 from queue import Full as Full
 from typing import Any, Generic, TypeVar
 
-__all__ = ["Queue", "SimpleQueue", "JoinableQueue"]
+__all__ = ["JoinableQueue", "Queue", "SimpleQueue"]
 
 _T = TypeVar("_T")
 

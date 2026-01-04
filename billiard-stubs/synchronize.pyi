@@ -1,8 +1,7 @@
 from collections.abc import Callable
 from multiprocessing.context import BaseContext
-from typing import Any
 
-__all__ = ["Lock", "RLock", "Semaphore", "BoundedSemaphore", "Condition", "Event"]
+__all__ = ["BoundedSemaphore", "Condition", "Event", "Lock", "RLock", "Semaphore"]
 
 class Semaphore:
     def __init__(self, value: int = ..., ctx: BaseContext | None = ...) -> None: ...

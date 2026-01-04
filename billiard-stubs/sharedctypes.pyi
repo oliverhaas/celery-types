@@ -1,4 +1,4 @@
-__all__ = ["RawValue", "RawArray", "Value", "Array", "copy", "synchronized"]
+__all__ = ["Array", "RawArray", "RawValue", "Value", "copy", "synchronized"]
 
 from multiprocessing.sharedctypes import Array as Array
 from multiprocessing.sharedctypes import RawArray as RawArray

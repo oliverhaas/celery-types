@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any
+from typing import Any, TypeAlias
 
 __all__ = ["ExceptionInfo", "Traceback"]
 
@@ -23,7 +23,7 @@ class Traceback:
         self, tb: TracebackType | None, max_frames: int = ..., depth: int = ...
     ) -> None: ...
 
-_ExcInfo = tuple[type[BaseException], BaseException, TracebackType | None]
+_ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None]
 
 class ExceptionInfo:
     exception: BaseException | None

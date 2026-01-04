@@ -6,7 +6,9 @@ from typing import SupportsInt, TypeAlias, TypeVar
 
 from _typeshed import FileDescriptorLike, ReadableBuffer, StrOrBytesPath
 
-FILENO_ERRORS: tuple[type[AttributeError], type[ValueError], type[io.UnsupportedOperation]]
+FILENO_ERRORS: tuple[
+    type[AttributeError], type[ValueError], type[io.UnsupportedOperation]
+]
 __write__ = os.write
 
 def send_offset(fd: int, buf: ReadableBuffer, offset: int) -> int: ...

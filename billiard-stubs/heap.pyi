@@ -1,5 +1,3 @@
-from typing import Any
-
 __all__ = ["BufferWrapper"]
 
 class BufferWrapper:
