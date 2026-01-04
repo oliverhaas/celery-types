@@ -5,14 +5,13 @@ from typing import Any
 
 from celery.app.base import Celery
 from celery.utils.collections import ConfigurationView
-from celery.utils.imports import symbol_by_name
 
 def appstr(app: Celery) -> str: ...
 def bugreport(app: Celery) -> str: ...
 def filter_hidden_settings(conf: dict[str, Any]) -> dict[str, Any]: ...
 def find_app(
     app: str,
-    symbol_by_name: Callable[[str], Any] = symbol_by_name,
+    symbol_by_name: Callable[[str], Any] = ...,
     imp: Callable[[str], ModuleType] | None = ...,
 ) -> Celery: ...
 
