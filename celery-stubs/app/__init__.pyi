@@ -12,9 +12,12 @@ from celery.app import beat as beat
 from celery.app import control as control
 from celery.app import events as events
 from celery.app import task as task
+from celery.app.base import Celery
 from celery.app.task import Context, Task
 from celery.utils.threads import _LocalStack
 from typing_extensions import ParamSpec
+
+def bugreport(app: Celery | None = ...) -> str: ...
 
 _T = TypeVar("_T", bound=Task[Any, Any])
 _P = ParamSpec("_P")
