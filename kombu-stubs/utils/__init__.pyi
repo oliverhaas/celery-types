@@ -6,8 +6,8 @@ from uuid import UUID
 from kombu.utils.functional import retry_over_time as retry_over_time
 from kombu.utils.objects import cached_property as cached_property
 
-# Note: runtime __all__ includes reprkwargs but it's not actually defined (kombu bug)
-# We match the runtime __all__ exactly
+# Note: runtime __all__ includes reprkwargs but it's not actually defined in kombu (kombu bug)
+# We omit it here since stubtest will error either way (missing from __all__ or missing at runtime)
 __all__ = (
     "EqualityDict",
     "cached_property",
@@ -20,15 +20,10 @@ __all__ = (
     "nested",
     "register_after_fork",
     "reprcall",
-    "reprkwargs",
     "retry_over_time",
     "symbol_by_name",
     "uuid",
 )
-
-# Defined in __all__ but not actually implemented at runtime (kombu bug)
-# We define it in the stub to match __all__
-def reprkwargs(kwargs: Mapping[str, Any], sep: str = ..., fmt: str = ...) -> str: ...
 
 class EqualityDict(dict[Any, Any]): ...
 
