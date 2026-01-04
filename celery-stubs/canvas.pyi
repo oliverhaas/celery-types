@@ -18,6 +18,12 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 _R_co = TypeVar("_R_co", covariant=True, default=Any)
 
 class Signature(dict[str, Any], Generic[_R_co]):
+    TYPES: dict[str, type[Signature[Any]]]
+
+    @classmethod
+    def register_type(
+        cls, name: str | None = None
+    ) -> Callable[[type[Signature[Any]]], type[Signature[Any]]]: ...
     @classmethod
     def from_dict(
         cls, d: dict[str, Any], app: Celery | None = ...
@@ -128,6 +134,7 @@ class Signature(dict[str, Any], Generic[_R_co]):
         chord: chord | None = ...,
         root_id: str | None = ...,
         parent_id: str | None = ...,
+        group_index: int | None = ...,
     ) -> celery.result.AsyncResult[_R_co]: ...
     def replace(
         self,
@@ -168,6 +175,22 @@ class Signature(dict[str, Any], Generic[_R_co]):
     def link_error(self, errback: Callable[..., Any]) -> Signature[_R_co]: ...
     def on_error(self, errback: _F) -> _F: ...
     def flatten_links(self) -> list[Signature[Any]]: ...
+    def stamp(
+        self,
+        visitor: Any = ...,
+        append_stamps: bool = ...,
+        **headers: Any,
+    ) -> Any: ...
+    def stamp_links(
+        self,
+        visitor: Any,
+        append_stamps: bool = ...,
+        **headers: Any,
+    ) -> Any: ...
+    def __deepcopy__(self, memo: dict[int, Any]) -> Signature[_R_co]: ...
+    def __invert__(self) -> Any: ...
+    def __json__(self) -> dict[str, Any]: ...
+    def reprcall(self, *args: Any, **kwargs: Any) -> str: ...
     # TODO(sbdchd): use overloads to properly type this
     @override
     def __or__(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
@@ -298,6 +321,14 @@ class chunks(Signature[Any]):
         publisher: kombu.Producer = ...,
         headers: dict[str, str] = ...,
     ) -> None: ...
+    @classmethod
+    def apply_chunks(
+        cls,
+        task: Task[Any, Any],
+        it: Iterable[Any],
+        n: int,
+        app: Celery | None = ...,
+    ) -> list[Any]: ...
     def group(self) -> _group: ...
 
 class group(Signature[Any]):
@@ -345,11 +376,21 @@ class group(Signature[Any]):
         self, start: float = ..., stop: float | None = ..., step: float = ...
     ) -> group: ...
     @override
+    def stamp(
+        self,
+        visitor: Any = ...,
+        append_stamps: bool = ...,
+        **headers: Any,
+    ) -> Any: ...
+    @override
     def __or__(self, other: Signature[Any]) -> chord: ...  # type: ignore[override]
 
 _group = group
 
 class chord(Signature[Any]):
+    tasks: Any
+    body: Any
+
     def __init__(
         self,
         header: Any,
@@ -384,6 +425,28 @@ class chord(Signature[Any]):
         publisher: kombu.Producer = ...,
         headers: dict[str, str] = ...,
     ) -> None: ...
+    def run(
+        self,
+        header: Any,
+        body: Any,
+        partial_args: tuple[Any, ...],
+        app: Celery | None = ...,
+        interval: float | None = ...,
+        countdown: int = ...,
+        max_retries: int | None = ...,
+        eager: bool = ...,
+        task_id: str | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        **options: Any,
+    ) -> Any: ...
+    def __length_hint__(self) -> int: ...
+    @override
+    def stamp(
+        self,
+        visitor: Any = ...,
+        append_stamps: bool = ...,
+        **headers: Any,
+    ) -> Any: ...
     @override
     def __or__(self, other: Signature[Any]) -> chord: ...  # type: ignore[override]
     @override

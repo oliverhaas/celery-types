@@ -46,13 +46,38 @@ _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
 class Celery(Generic[_T_Global]):
-    steps: defaultdict[str, set[Any]]
+    # Class-level constants
+    IS_WINDOWS: bool
+    IS_macOS: bool
+    SYSTEM: str
+    Pickler: type[Any]
 
+    # Configuration class names
+    amqp_cls: str | None
+    backend_cls: str | None
+    control_cls: str | None
+    events_cls: str | None
+    loader_cls: str | None
+    log_cls: str | None
+    registry_cls: str | None
+    task_cls: str | None
+
+    # Instance attributes (None at class level)
+    main: str | None
+    steps: defaultdict[str, set[Any]] | None
+    user_options: dict[str, Any] | None
+    builtin_fixups: set[str]
+
+    # Signals (always initialized in __init__)
     on_configure: Signal
     on_after_configure: Signal
     on_after_finalize: Signal
     on_after_fork: Signal
 
+    # Reduce methods for pickling
+    def __reduce_args__(self) -> tuple[Any, ...]: ...
+    def __reduce_keys__(self) -> dict[str, Any]: ...
+    def __reduce_v1__(self) -> tuple[Any, ...]: ...
     def __init__(
         self,
         main: str | None = None,

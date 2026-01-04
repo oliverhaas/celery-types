@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Generic, TypeAlias, TypeVar
+from typing import Any, Generic, TypeAlias, TypeVar
 
 from typing_extensions import Self
 
@@ -20,3 +20,25 @@ class class_property(Generic[_T, _R]):
     def __get__(self, obj: _T | None, type: type[_T] | None = None) -> _R: ...
     def __set__(self, obj: _T | None, value: _R) -> Self: ...
     def setter(self, setter: _Setter[_T, _R]) -> Self: ...
+
+class Proxy(Generic[_T]):
+    def __init__(
+        self,
+        local: Callable[[], _T],
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        name: str | None = ...,
+        __doc__: str | None = ...,
+    ) -> None: ...
+    def _get_current_object(self) -> _T: ...
+
+class PromiseProxy(Proxy[_T]):
+    def __init__(
+        self,
+        local: Callable[[], _T],
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        name: str | None = ...,
+        __doc__: str | None = ...,
+    ) -> None: ...
+    def _set_current_object(self, obj: _T) -> None: ...

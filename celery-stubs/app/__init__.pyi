@@ -14,10 +14,34 @@ from celery.app import events as events
 from celery.app import task as task
 from celery.app.base import Celery
 from celery.app.task import Context, Task
+from celery.local import Proxy
 from celery.utils.threads import _LocalStack
 from typing_extensions import ParamSpec
 
+__all__ = (
+    "AppPickler",
+    "Celery",
+    "app_or_default",
+    "bugreport",
+    "default_app",
+    "disable_trace",
+    "enable_trace",
+    "pop_current_task",
+    "push_current_task",
+    "shared_task",
+)
+
+class AppPickler:
+    def __call__(self, cls: type[Celery], *args: Any) -> Celery: ...
+
+def app_or_default(app: Celery | None = ...) -> Celery: ...
 def bugreport(app: Celery | None = ...) -> str: ...
+def enable_trace() -> None: ...
+def disable_trace() -> None: ...
+def push_current_task(obj: Task[Any, Any]) -> None: ...
+def pop_current_task() -> Task[Any, Any] | None: ...
+
+default_app: Proxy[Celery]
 
 _T = TypeVar("_T", bound=Task[Any, Any])
 _P = ParamSpec("_P")

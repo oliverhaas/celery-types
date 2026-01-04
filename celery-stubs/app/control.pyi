@@ -227,6 +227,6 @@ class Control:
         callback: Callable[..., Any] | None = ...,
         channel: Any | None = ...,
         pattern: str | None = ...,
-        matcher: Callable[..., Any] = ...,
+        matcher: Callable[..., Any] | None = ...,
         **extra_kwargs: Any,
     ) -> list[dict[str, _Reply]] | None: ...

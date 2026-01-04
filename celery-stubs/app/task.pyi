@@ -67,7 +67,19 @@ class Context:
     def children(self) -> list[str]: ...
 
 class Task(Generic[_P, _R_co]):
-    name: str
+    # Class-level references
+    MaxRetriesExceededError: type[Exception]
+    OperationalError: type[Exception]
+    Request: str
+    Strategy: str
+
+    # Flags
+    __bound__: bool
+    __trace__: Any
+    __v2_compat__: bool
+
+    # Task configuration
+    name: str | None
     typing: bool
     max_retries: int | None
     default_retry_delay: int
@@ -81,15 +93,20 @@ class Task(Generic[_P, _R_co]):
     soft_time_limit: int | None
     autoregister: bool
     track_started: bool
-    acks_late: bool
-    acks_on_failure_or_timeout: bool
-    reject_on_worker_lost: bool
+    acks_late: bool | None
+    acks_on_failure_or_timeout: bool | None
+    reject_on_worker_lost: bool | None
     throws: tuple[type[Exception], ...]
     expires: float | datetime | None
     priority: int | None
     resultrepr_maxsize: int
     request_stack: _LocalStack[Context]
     abstract: bool
+
+    # Config mapping
+    from_config: tuple[tuple[str, str], ...]
+
+    def on_replace(self, sig: Signature[Any]) -> None: ...
     @classmethod
     def bind(cls, app: Celery) -> Celery: ...
     @classmethod
