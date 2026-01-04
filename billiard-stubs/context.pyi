@@ -11,39 +11,28 @@ from multiprocessing import (
 from multiprocessing.managers import SyncManager
 from multiprocessing.queues import (
     JoinableQueue as _JoinableQueue,
-)
-from multiprocessing.queues import (
     Queue as _Queue,
-)
-from multiprocessing.queues import (
     SimpleQueue as _SimpleQueue,
 )
 from multiprocessing.sharedctypes import SynchronizedBase
 from multiprocessing.synchronize import (
     Barrier as _Barrier,
-)
-from multiprocessing.synchronize import (
     BoundedSemaphore as _BoundedSemaphore,
-)
-from multiprocessing.synchronize import (
     Condition as _Condition,
-)
-from multiprocessing.synchronize import (
     Event as _Event,
-)
-from multiprocessing.synchronize import (
     Lock as _Lock,
-)
-from multiprocessing.synchronize import (
     RLock as _RLock,
-)
-from multiprocessing.synchronize import (
     Semaphore as _Semaphore,
 )
 from typing import Any
 
 from billiard import process
 from billiard.connection import Connection
+from billiard.exceptions import (
+    SoftTimeLimitExceeded,
+    TimeLimitExceeded,
+    WorkerLostError,
+)
 from billiard.pool import Pool as _Pool
 from billiard.process import BaseProcess
 
@@ -57,6 +46,9 @@ class BaseContext:
     BufferTooShort: type[BufferTooShort]
     ProcessError: type[ProcessError]
     TimeoutError: type[TimeoutError]
+    SoftTimeLimitExceeded: type[SoftTimeLimitExceeded]
+    TimeLimitExceeded: type[TimeLimitExceeded]
+    WorkerLostError: type[WorkerLostError]
 
     def Array(
         self,
@@ -113,12 +105,14 @@ class BaseContext:
     def Value(
         self, typecode_or_type: str | type[_CData], *args: Any, **kwargs: Any
     ) -> SynchronizedBase[Any]: ...
+    @staticmethod
     def active_children(
-        self, _cleanup: Callable[[], None] = ...
+        _cleanup: Callable[[], None] = ...
     ) -> list[BaseProcess]: ...
     def allow_connection_pickling(self) -> None: ...
     def cpu_count(self) -> int: ...
-    def current_process(self) -> BaseProcess: ...
+    @staticmethod
+    def current_process() -> BaseProcess: ...
     def forking_enable(self, value: bool) -> None: ...
     def forking_is_enabled(self) -> bool: ...
     def freeze_support(self) -> None: ...
@@ -131,7 +125,15 @@ class BaseContext:
     def set_start_method(self, method: str | None = ...) -> None: ...
 
 class Process(process.BaseProcess): ...
-class DefaultContext(BaseContext): ...
+
+class DefaultContext(BaseContext):
+    __all__: list[str]
+    def __init__(self, context: BaseContext) -> None: ...
+    def get_all_start_methods(self) -> list[str]: ...
+    def set_start_method(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, method: str, force: bool = ...
+    ) -> None: ...
+
 class ForkProcess(process.BaseProcess): ...
 class SpawnProcess(process.BaseProcess): ...
 class ForkServerProcess(process.BaseProcess): ...

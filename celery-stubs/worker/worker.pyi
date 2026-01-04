@@ -1,6 +1,13 @@
+from typing import Any
+
 from celery.worker.components import Hub, Pool, Timer
 
 class WorkController:
     hub: Hub | None
     pool: Pool | None
     timer: Timer | None
+
+    def on_after_init(self, **kwargs: Any) -> None: ...
+    def on_before_init(self, **kwargs: Any) -> None: ...
+    def on_consumer_ready(self, consumer: Any) -> None: ...
+    def on_start(self) -> None: ...

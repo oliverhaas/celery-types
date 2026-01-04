@@ -1,0 +1,3 @@
+from celery.loaders.base import BaseLoader
+
+def get_loader_cls(loader: str) -> type[BaseLoader]: ...

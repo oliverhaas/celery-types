@@ -1,0 +1,23 @@
+import pickle
+from typing import Any, Callable
+
+__all__ = [
+    "send_handle",
+    "recv_handle",
+    "ForkingPickler",
+    "register",
+    "dump",
+    "DupFd",
+    "sendfds",
+    "recvfds",
+]
+
+ForkingPickler: type[pickle.Pickler]
+
+def dump(obj: Any, file: Any, protocol: int | None = ...) -> None: ...
+def register(type: type, reduce: Callable[[Any], Any]) -> None: ...
+def DupFd(fd: int) -> Any: ...
+def sendfds(sock: Any, fds: list[int]) -> None: ...
+def recvfds(sock: Any, size: int) -> list[int]: ...
+def send_handle(conn: Any, handle: int, destination_pid: int) -> None: ...
+def recv_handle(conn: Any) -> int: ...

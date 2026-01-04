@@ -76,28 +76,7 @@ class Signature(dict[str, Any], Generic[_R_co]):
         args: tuple[Any, ...] | None = ...,
         kwargs: dict[str, Any] | None = ...,
         route_name: str | None = ...,
-        *,
-        # options
-        task_id: str | None = ...,
-        producer: kombu.Producer | None = ...,
-        link: Signature[Any] | list[Signature[Any]] | None = ...,
-        link_error: Signature[Any] | list[Signature[Any]] | None = ...,
-        shadow: str | None = ...,
-        # apply_async options
-        countdown: float = ...,
-        eta: datetime | None = ...,
-        expires: float | datetime = ...,
-        retry: bool = ...,
-        retry_policy: Mapping[str, Any] = ...,
-        queue: str | kombu.Queue = ...,
-        exchange: str | kombu.Exchange = ...,
-        routing_key: str = ...,
-        priority: int = ...,
-        serializer: str = ...,
-        compression: str = ...,
-        add_to_parent: bool = ...,
-        publisher: kombu.Producer = ...,
-        headers: dict[str, str] = ...,
+        **options: Any,
     ) -> celery.result.AsyncResult[_R_co]: ...
     def clone(
         self,
@@ -225,6 +204,8 @@ class Signature(dict[str, Any], Generic[_R_co]):
     def immutable(self) -> bool: ...
 
 class _chain(Signature[Any]):
+    @property
+    def tasks(self) -> tuple[Signature[Any], ...]: ...
     def __init__(
         self,
         *tasks: Signature[Any],
@@ -254,6 +235,47 @@ class _chain(Signature[Any]):
         publisher: kombu.Producer = ...,
         headers: dict[str, str] = ...,
     ) -> None: ...
+    @override
+    def apply_async(  # type: ignore[override]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        **options: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
+    def prepare_steps(
+        self,
+        args: tuple[Any, ...],
+        kwargs: dict[str, Any],
+        tasks: list[Signature[Any]],
+        root_id: str | None = None,
+        parent_id: str | None = None,
+        link_error: Signature[Any] | None = None,
+        app: Celery | None = None,
+        last_task_id: str | None = None,
+        group_id: str | None = None,
+        chord_body: Signature[Any] | None = None,
+        clone: bool = True,
+        from_dict: Callable[[dict[str, Any], Celery | None], Signature[Any]] = ...,
+        group_index: int | None = None,
+    ) -> tuple[Any, ...]: ...
+    def run(
+        self,
+        args: tuple[Any, ...] | None = None,
+        kwargs: dict[str, Any] | None = None,
+        group_id: str | None = None,
+        chord: chord | None = None,
+        task_id: str | None = None,
+        link: Signature[Any] | None = None,
+        link_error: Signature[Any] | None = None,
+        publisher: kombu.Producer | None = None,
+        producer: kombu.Producer | None = None,
+        root_id: str | None = None,
+        parent_id: str | None = None,
+        app: Celery | None = None,
+        group_index: int | None = None,
+        **options: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
+    def unchain_tasks(self) -> list[Signature[Any]]: ...
 
 class chain(_chain): ...
 
@@ -291,6 +313,13 @@ class _basemap(Signature[Any]):
         publisher: kombu.Producer = ...,
         headers: dict[str, str] = ...,
     ) -> None: ...
+    @override
+    def apply_async(  # type: ignore[override]
+        self,
+        args: tuple[Any, ...] | None = ...,
+        kwargs: dict[str, Any] | None = ...,
+        **opts: Any,
+    ) -> celery.result.AsyncResult[Any]: ...
 
 class xmap(_basemap): ...
 class xstarmap(_basemap): ...

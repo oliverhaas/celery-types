@@ -58,6 +58,8 @@ class Context:
     taskset: str | None  # compat alias to group
     timelimit: tuple[int, int] | tuple[None, None] | None
     utc: bool | None
+    stamped_headers: list[str] | None
+    stamps: dict[str, Any] | None
     def __init__(self, *args: dict[str, Any], **kwargs: Any) -> None: ...
     def update(self, *args: dict[str, Any], **kwargs: Any) -> None: ...
     def clear(self) -> None: ...
@@ -102,6 +104,7 @@ class Task(Generic[_P, _R_co]):
     resultrepr_maxsize: int
     request_stack: _LocalStack[Context]
     abstract: bool
+    store_eager_result: bool
 
     # Config mapping
     from_config: tuple[tuple[str, str], ...]

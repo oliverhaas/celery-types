@@ -1,0 +1,13 @@
+from typing import Sequence
+
+__all__ = [
+    "ensure_running",
+    "get_inherited_fds",
+    "connect_to_new_process",
+    "set_forkserver_preload",
+]
+
+def connect_to_new_process(fds: Sequence[int]) -> tuple[int, int]: ...
+def ensure_running() -> None: ...
+def get_inherited_fds() -> list[int] | None: ...
+def set_forkserver_preload(modules_names: list[str]) -> None: ...
