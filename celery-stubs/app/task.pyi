@@ -160,7 +160,7 @@ class Task(Generic[_P, _R_co]):
     def signature_from_request(
         self,
         request: Context | None = ...,
-        args: tuple[Any, ...] = ...,
+        args: tuple[Any, ...] | None = ...,
         kwargs: dict[str, Any] | None = ...,
         queue: str | None = ...,
         **extra_options: Any,

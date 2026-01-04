@@ -1,4 +1,4 @@
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 from celery import execute as execute
 from celery import local
@@ -50,6 +50,7 @@ def maybe_patch_concurrency(
     argv: list[str] | None = ...,
     short_opts: str | None = ...,
     long_opts: list[str] | None = ...,
+    patches: dict[str, Any] | None = ...,
 ) -> None: ...
 
 # Note: These are lazy module proxies at runtime
