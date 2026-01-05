@@ -1,5 +1,5 @@
-from datetime import datetime
 import re
+from datetime import datetime
 
 ISO8601_REGEX: re.Pattern[str]
 TIMEZONE_REGEX: re.Pattern[str]

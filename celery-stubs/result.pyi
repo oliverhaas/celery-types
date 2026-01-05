@@ -11,11 +11,11 @@ from typing import (
 )
 
 __all__ = (
-    "ResultBase",
     "AsyncResult",
-    "ResultSet",
-    "GroupResult",
     "EagerResult",
+    "GroupResult",
+    "ResultBase",
+    "ResultSet",
     "result_from_tuple",
 )
 
@@ -41,9 +41,9 @@ _R_co = TypeVar("_R_co", covariant=True)
 
 class AsyncResult(ResultBase, Generic[_R_co]):
     TimeoutError: type[CeleryTimeoutError]
-    app: Celery
-    id: str
-    backend: Backend
+    app: Celery | None
+    id: str | None
+    backend: Backend | None
     parent: ResultBase | None
     on_ready: promise
     def __init__(
@@ -294,7 +294,9 @@ class ResultSet(ResultBase):
     def update(self, results: list[AsyncResult[Any]]) -> None: ...
     def waiting(self) -> bool: ...
 
-def result_from_tuple(r: tuple[Any, ...], app: Celery | None = ...) -> AsyncResult[Any]: ...
+def result_from_tuple(
+    r: tuple[Any, ...], app: Celery | None = ...
+) -> AsyncResult[Any]: ...
 
 class GroupResult(ResultSet):
     id: str | None

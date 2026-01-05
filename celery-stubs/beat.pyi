@@ -9,14 +9,14 @@ from celery.app.base import Celery
 from celery.schedules import BaseSchedule
 from typing_extensions import override
 
-__all__ = [
+__all__ = (
     "EmbeddedService",
     "PersistentScheduler",
     "ScheduleEntry",
     "Scheduler",
     "SchedulingError",
     "Service",
-]
+)
 
 class SchedulingError(Exception): ...
 

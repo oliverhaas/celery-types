@@ -2,7 +2,7 @@ from builtins import type as _type
 from collections.abc import Callable
 from typing import Any
 
-__all__ = ("Option", "NAMESPACES", "flatten", "find")
+__all__ = ("NAMESPACES", "Option", "find", "flatten")
 
 class Option:
     default: Any
@@ -26,5 +26,9 @@ NAMESPACES: dict[str, dict[str, Option]]
 SETTING_KEYS: set[str]
 
 def find(name: str, namespace: str = "celery") -> tuple[str, Option] | None: ...
-def flatten(d: dict[str, dict[str, Any]], root: str = "", keyfilter: Callable[..., Any] = ...) -> dict[str, Any]: ...
-def strtobool(term: str | bool | int | None, table: dict[str, bool] | None = None) -> bool: ...
+def flatten(
+    d: dict[str, dict[str, Any]], root: str = "", keyfilter: Callable[..., Any] = ...
+) -> dict[str, Any]: ...
+def strtobool(
+    term: str | bool | int | None, table: dict[str, bool] | None = None
+) -> bool: ...

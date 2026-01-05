@@ -1,8 +1,6 @@
 from collections.abc import Callable
 from typing import Any
 
-from celery.app.base import Celery
-
 class Panel:
     data: dict[str, Callable[..., Any]]
 

@@ -1,4 +1,4 @@
-from typing import Any
+__all__ = ("PrivateKey",)
 
 class PrivateKey:
     def __init__(self, key: bytes | str, password: str | None = None) -> None: ...

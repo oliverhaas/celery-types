@@ -5,6 +5,8 @@ from typing import Any
 
 from celery.app.base import Celery
 
+__all__ = ("BaseLoader",)
+
 class BaseLoader:
     app: Celery
     builtin_modules: frozenset[str]

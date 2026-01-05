@@ -9,13 +9,13 @@ from typing import (
 __all__ = (
     "Signature",
     "chain",
-    "xmap",
-    "xstarmap",
+    "chord",
     "chunks",
     "group",
-    "chord",
-    "signature",
     "maybe_signature",
+    "signature",
+    "xmap",
+    "xstarmap",
 )
 
 import celery.result
@@ -380,7 +380,7 @@ class chunks(Signature[Any]):
         app: Celery | None = ...,
     ) -> list[Any]: ...
     @override
-    def __call__(self, **options: Any) -> Any: ...  # type: ignore[override]
+    def __call__(self, **options: Any) -> Any: ...
     @override
     def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -516,7 +516,7 @@ class chord(Signature[Any]):
     ) -> Any: ...
     def __length_hint__(self) -> int: ...
     @override
-    def apply(  # type: ignore[override]
+    def apply(
         self,
         args: tuple[Any, ...] | None = ...,
         kwargs: dict[str, Any] | None = ...,

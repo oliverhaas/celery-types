@@ -3,6 +3,8 @@ from typing import Any
 from celery.security.certificate import Certificate, CertStore
 from celery.security.key import PrivateKey
 
+__all__ = ("SecureSerializer", "register_auth")
+
 class SecureSerializer:
     def __init__(
         self,
@@ -17,9 +19,9 @@ class SecureSerializer:
 
 def register_auth(
     key: str | None = None,
+    key_password: str | None = None,
     cert: str | None = None,
     store: str | None = None,
     digest: str = "sha256",
     serializer: str = "json",
-    key_password: str | None = None,
 ) -> SecureSerializer: ...

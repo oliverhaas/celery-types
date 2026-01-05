@@ -2,7 +2,7 @@ from collections.abc import Callable
 from datetime import timedelta
 from typing import Any, NamedTuple
 
-__all__ = ("BaseBackend", "KeyValueStoreBackend", "DisabledBackend")
+__all__ = ("BaseBackend", "DisabledBackend", "KeyValueStoreBackend")
 
 from celery.app.task import Context
 from celery.exceptions import TimeoutError as CeleryTimeoutError

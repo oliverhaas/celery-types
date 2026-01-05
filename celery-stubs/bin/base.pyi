@@ -1,12 +1,11 @@
 from collections.abc import Callable, Sequence
-from collections import OrderedDict
 from typing import Any
 
 import click
-
 from celery.app.base import Celery
 
 class CeleryOption(click.Option): ...
+
 class CeleryCommand(click.Command):
     app: Celery | None
     def __init__(
@@ -15,6 +14,7 @@ class CeleryCommand(click.Command):
         params: Sequence[click.Parameter] | None = None,
         **kwargs: Any,
     ) -> None: ...
+
 class CeleryDaemonCommand(CeleryCommand): ...
 class DaemonOption(click.Option): ...
 

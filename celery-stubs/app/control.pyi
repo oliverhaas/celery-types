@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Literal, TypeAlias, TypedDict
 
-__all__ = ("Inspect", "Control", "flatten_reply")
+__all__ = ("Control", "Inspect", "flatten_reply")
 
 from celery.app.base import Celery
 from celery.result import _State

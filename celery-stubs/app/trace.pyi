@@ -2,7 +2,13 @@ from collections.abc import Callable
 from logging import Logger
 from typing import Any
 
-__all__ = ("TraceInfo", "build_tracer", "trace_task", "setup_worker_optimizations", "reset_worker_optimizations")
+__all__ = (
+    "TraceInfo",
+    "build_tracer",
+    "reset_worker_optimizations",
+    "setup_worker_optimizations",
+    "trace_task",
+)
 
 from celery.app.base import Celery
 from celery.app.task import Task
@@ -27,9 +33,7 @@ class TraceInfo:
         call_errbacks: bool = True,
     ) -> None: ...
     def handle_ignore(self, task: Task[..., Any], req: Any) -> None: ...
-    def handle_reject(
-        self, task: Task[..., Any], req: Any, **kwargs: Any
-    ) -> None: ...
+    def handle_reject(self, task: Task[..., Any], req: Any, **kwargs: Any) -> None: ...
     def handle_retry(
         self,
         task: Task[..., Any],
@@ -44,7 +48,7 @@ def build_tracer(
     loader: Any | None = None,
     hostname: str | None = None,
     store_errors: bool = True,
-    Info: type = TraceInfo,
+    Info: type = ...,
     eager: bool = False,
     propagate: bool = False,
     app: Celery | None = None,

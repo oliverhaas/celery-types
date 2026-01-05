@@ -38,4 +38,4 @@ def send_task(
     **options: Any,
 ) -> AsyncResult[Any]: ...
 
-__all__ = ("send_task",)
+__all__: list[str]

@@ -1,6 +1,6 @@
 from typing import Any, ClassVar
 
-__all__ = ("Blueprint", "Step", "StartStopStep", "ConsumerStep")
+__all__ = ("Blueprint", "ConsumerStep", "StartStopStep", "Step")
 
 from celery.utils.graph import GraphFormatter
 from kombu import Consumer
@@ -19,7 +19,7 @@ class Blueprint:
     name: ClassVar[str | None]
     state: Any
     started: int
-    default_steps: list[str]
+    default_steps: set[Any]
     state_to_name: Any
     types: Any
     on_start: Any
@@ -67,7 +67,7 @@ class Blueprint:
 
 class StepType(type):
     name: ClassVar[str | None]
-    requires: tuple[type[Step] | str, ...]
+    requires: tuple[type[Step] | str, ...] | None
     def __new__(cls, name: Any, bases: Any, attrs: Any) -> Any: ...
 
 class Step(metaclass=StepType):

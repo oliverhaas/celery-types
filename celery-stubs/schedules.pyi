@@ -5,10 +5,10 @@ from typing import Any, Literal, NamedTuple, TypeAlias
 
 __all__ = (
     "ParseException",
-    "schedule",
     "crontab",
     "crontab_parser",
     "maybe_schedule",
+    "schedule",
     "solar",
 )
 
@@ -116,7 +116,7 @@ class solar(BaseSchedule):
     def __init__(
         self,
         event: _SolarEvent,
-        lat: int | float,
-        lon: int | float,
+        lat: float,
+        lon: float,
         **kwargs: Any,
     ) -> None: ...

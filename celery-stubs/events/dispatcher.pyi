@@ -2,9 +2,8 @@ from collections.abc import Callable
 from typing import Any
 
 import kombu
-from kombu.transport.virtual import Channel
-
 from celery.app.base import Celery
+from kombu.transport.virtual import Channel
 
 class EventDispatcher:
     app: Celery
@@ -64,4 +63,4 @@ class EventDispatcher:
     @property
     def publisher(self) -> kombu.Producer | None: ...
     def __enter__(self) -> EventDispatcher: ...
-    def __exit__(self, *args: Any) -> None: ...
+    def __exit__(self, *args: object) -> None: ...

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing import Any, Generic, TypeAlias, TypeVar
 
-__all__ = ("Proxy", "PromiseProxy", "try_import", "maybe_evaluate")
+__all__ = ("PromiseProxy", "Proxy", "maybe_evaluate", "try_import")
 
 from typing_extensions import Self
 

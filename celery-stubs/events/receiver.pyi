@@ -3,7 +3,6 @@ from contextlib import contextmanager
 from typing import Any
 
 import kombu
-
 from celery.app.base import Celery
 
 class EventReceiver:

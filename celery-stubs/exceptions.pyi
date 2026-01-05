@@ -12,11 +12,15 @@ from celery.canvas import Signature
 from click.exceptions import ClickException
 from kombu.exceptions import OperationalError
 
-__all__ = [
+__all__ = (
     "AlreadyRegistered",
     "AlwaysEagerIgnored",
+    "BackendError",
+    "BackendGetMetaError",
+    "BackendStoreError",
     "CDeprecationWarning",
     "CPendingDeprecationWarning",
+    "CeleryCommandException",
     "CeleryError",
     "CeleryWarning",
     "ChordError",
@@ -34,6 +38,7 @@ __all__ = [
     "Reject",
     "Retry",
     "SecurityError",
+    "SecurityWarning",
     "SoftTimeLimitExceeded",
     "TaskError",
     "TaskPredicate",
@@ -44,7 +49,8 @@ __all__ = [
     "WorkerLostError",
     "WorkerShutdown",
     "WorkerTerminate",
-]
+    "reraise",
+)
 
 class CeleryWarning(UserWarning): ...
 class AlwaysEagerIgnored(CeleryWarning): ...

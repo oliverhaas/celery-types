@@ -70,11 +70,11 @@ class Celery(Generic[_T_Global]):
     user_options: dict[str, Any] | None
     builtin_fixups: set[str]
 
-    # Signals (always set on instances in __init__)
-    on_configure: Signal
-    on_after_configure: Signal
-    on_after_finalize: Signal
-    on_after_fork: Signal
+    # Signals (class attrs are None, but set to Signal on instances in __init__)
+    on_configure: Signal | None
+    on_after_configure: Signal | None
+    on_after_finalize: Signal | None
+    on_after_fork: Signal | None
 
     # Reduce methods for pickling
     def __reduce_args__(self) -> tuple[Any, ...]: ...
@@ -373,7 +373,7 @@ class Celery(Generic[_T_Global]):
         schedule: BaseSchedule | float,
         sig: Signature[Any],
         args: tuple[Any, ...] = (),
-        kwargs: tuple[()] = (),  # type: ignore[assignment]  # runtime uses empty tuple
+        kwargs: tuple[()] = (),  # runtime uses empty tuple
         name: str | None = None,
         **opts: Any,
     ) -> str: ...

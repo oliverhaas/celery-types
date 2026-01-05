@@ -31,4 +31,4 @@ def TaskConsumer(
     **kw: Any,
 ) -> Any: ...
 
-__all__ = ("TaskConsumer", "establish_connection", "get_consumer_set")
+__all__: list[str]
