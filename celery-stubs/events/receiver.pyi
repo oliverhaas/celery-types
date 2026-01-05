@@ -1,17 +1,20 @@
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import contextmanager
+from operator import itemgetter
 from typing import Any
 
 import kombu
 from celery.app.base import Celery
+from kombu.utils.objects import cached_property
+
+__all__ = ("EventReceiver",)
 
 class EventReceiver:
-    Consumer: type[Any]
-    app: Celery
-    connection: kombu.Connection
+    Consumer: Callable[..., Any]
+    app: Celery | None
     handlers: dict[str, Callable[..., Any]]
-    channel_errors: tuple[type[Exception], ...]
-    connection_errors: tuple[type[Exception], ...]
+    channel_errors: cached_property[tuple[type[Exception], ...]]
+    connection_errors: cached_property[tuple[type[Exception], ...]]
     connect_max_retries: int | None
     restart_limit: Any
     should_stop: bool
@@ -23,11 +26,15 @@ class EventReceiver:
         routing_key: str = "#",
         node_id: str | None = None,
         app: Celery | None = None,
-        queue_prefix: str = "celeryev",
+        queue_prefix: str | None = None,
         accept: Iterable[str] | None = None,
         queue_ttl: float | None = None,
         queue_expires: float | None = None,
+        queue_exclusive: bool | None = None,
+        queue_durable: bool | None = None,
     ) -> None: ...
+    @property
+    def connection(self) -> kombu.Connection: ...
     def process(
         self,
         type: str,
@@ -49,13 +56,13 @@ class EventReceiver:
         self,
         limit: int | None = None,
         timeout: float | None = None,
-        wakeup: bool = True,
+        safety_interval: float = 1,
+        **kwargs: Any,
     ) -> None: ...
     def run(
         self,
-        limit: int | None = None,
-        timeout: float | None = None,
-        wakeup: bool = True,
+        _tokens: int = 1,
+        **kwargs: Any,
     ) -> None: ...
     @contextmanager
     def consumer_context(self, wakeup: bool = True) -> Iterator[kombu.Consumer]: ...
@@ -80,7 +87,13 @@ class EventReceiver:
         self, connection: kombu.Connection, channel: Any
     ) -> Iterator[None]: ...
     def event_from_message(
-        self, body: Any, message: Any
+        self,
+        body: Any,
+        localize: bool = True,
+        now: Callable[[], float] = ...,
+        tzfields: itemgetter[Any] = ...,
+        adjust_timestamp: Callable[..., float] = ...,
+        CLIENT_CLOCK_SKEW: int = -1,
     ) -> tuple[str, dict[str, Any]]: ...
-    def get_consumers(self, consumer: type[Any], channel: Any) -> list[Any]: ...
-    def wakeup_workers(self, channel: Any) -> None: ...
+    def get_consumers(self, Consumer: type[Any], channel: Any) -> list[Any]: ...
+    def wakeup_workers(self, channel: Any = None) -> None: ...

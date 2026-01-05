@@ -1,5 +1,3 @@
-from typing import Any
+from celery.bin.base import CeleryCommand
 
-import click
-
-def call(ctx: click.Context, name: str, **kwargs: Any) -> Any: ...
+call: CeleryCommand

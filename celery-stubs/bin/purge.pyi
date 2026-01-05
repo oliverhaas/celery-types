@@ -1,5 +1,3 @@
-from typing import Any
+from celery.bin.base import CeleryCommand
 
-import click
-
-def purge(ctx: click.Context, **kwargs: Any) -> Any: ...
+purge: CeleryCommand

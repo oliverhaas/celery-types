@@ -1,25 +1,41 @@
+from collections.abc import Callable
 from typing import Any
+
+__all__ = (
+    "UnpickleableExceptionWrapper",
+    "create_exception_cls",
+    "find_pickleable_exception",
+    "get_pickleable_etype",
+    "get_pickleable_exception",
+    "get_pickled_exception",
+    "strtobool",
+    "subclass_exception",
+)
 
 STRTOBOOL_DEFAULT_TABLE: dict[str, bool]
 
 class UnpickleableExceptionWrapper(Exception):
-    exc_module: str
-    exc_name: str
-    exc_args: tuple[Any, ...]
+    exc_module: str | None
+    exc_cls_name: str | None
+    exc_args: tuple[Any, ...] | None
 
     def __init__(
         self,
         exc_module: str,
-        exc_name: str,
+        exc_cls_name: str,
         exc_args: tuple[Any, ...],
-        text: str = "",
+        text: str | None = None,
     ) -> None: ...
+    @classmethod
+    def from_exception(cls, exc: Exception) -> UnpickleableExceptionWrapper: ...
     def restore(self) -> Exception: ...
 
 def b64encode(s: bytes) -> bytes: ...
 def b64decode(s: bytes) -> bytes: ...
-def base64encode(s: bytes) -> bytes: ...
-def base64decode(s: bytes) -> bytes: ...
+def base64encode(s: bytes, altchars: bytes | None = None) -> bytes: ...
+def base64decode(
+    s: bytes, altchars: bytes | None = None, validate: bool = False
+) -> bytes: ...
 def bytes_to_str(s: bytes | str) -> str: ...
 def str_to_bytes(s: str | bytes) -> bytes: ...
 def strtobool(
@@ -34,7 +50,8 @@ def jsonify(
     obj: Any,
     builtin_types: tuple[type, ...] = ...,
     key: Any = None,
-    keyfilter: Any = None,
+    keyfilter: Callable[[str], bool] | None = None,
+    unknown_type_filter: Callable[[Any], Any] | None = None,
 ) -> Any: ...
 def raise_with_context(exc: Exception) -> None: ...
 def find_pickleable_exception(
@@ -42,12 +59,12 @@ def find_pickleable_exception(
     loads: Any = ...,
     dumps: Any = ...,
 ) -> Exception | None: ...
-def ensure_serializable(objects: list[Any], encoder: Any) -> list[Any]: ...
+def ensure_serializable(items: list[Any], encoder: Any) -> list[Any]: ...
 def create_exception_cls(
     name: str, module: str, parent: type | None = None
 ) -> type[Exception]: ...
 def subclass_exception(
-    name: str, parent: type[Exception], module: str | None = None
+    name: str, parent: type[Exception], module: str
 ) -> type[Exception]: ...
 def itermro(cls: type, stop: type) -> Any: ...
-def safe_repr(o: Any, max_length: int = 200) -> str: ...
+def safe_repr(o: Any, errors: str = "replace") -> str: ...

@@ -17,7 +17,7 @@ def find_app(
     imp: Callable[[str], ModuleType] | None = ...,
 ) -> Celery: ...
 
-class Settings(ConfigurationView):  # type: ignore[misc]  # pyright: ignore[reportImplicitAbstractClass]
+class Settings(ConfigurationView):
     def __init__(
         self, *args: Any, deprecated_settings: set[str] | None = None, **kwargs: Any
     ) -> None: ...

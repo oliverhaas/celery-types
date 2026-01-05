@@ -4,13 +4,19 @@ from typing import Any
 import kombu
 from celery.app.base import Celery
 from kombu.transport.virtual import Channel
+from typing_extensions import Self
+
+__all__ = ("EventDispatcher",)
 
 class EventDispatcher:
-    app: Celery
+    DISABLED_TRANSPORTS: set[str]
+    app: Celery | None
     connection: kombu.Connection | None
     hostname: str
     groups: set[str] | None
     enabled: bool
+    on_enabled: Callable[[], None] | None
+    on_disabled: Callable[[], None] | None
 
     def __init__(
         self,
@@ -33,19 +39,19 @@ class EventDispatcher:
         self,
         type: str,
         fields: dict[str, Any],
-        producer: kombu.Producer | None = None,
+        producer: kombu.Producer,
         blind: bool = False,
-        Event: Callable[..., dict[str, Any]] | None = None,
+        Event: Callable[..., dict[str, Any]] = ...,
         **kwargs: Any,
     ) -> None: ...
     def send(
         self,
         type: str,
         blind: bool = False,
-        utcoffset: Callable[[], int] | None = None,
+        utcoffset: Callable[[], int] = ...,
         retry: bool = False,
         retry_policy: dict[str, Any] | None = None,
-        Event: Callable[..., dict[str, Any]] | None = None,
+        Event: Callable[..., dict[str, Any]] = ...,
         **fields: Any,
     ) -> None: ...
     def extend_buffer(
@@ -58,9 +64,7 @@ class EventDispatcher:
         groups: bool = True,
     ) -> None: ...
     def close(self) -> None: ...
-    def on_enabled(self) -> None: ...
-    def on_disabled(self) -> None: ...
     @property
     def publisher(self) -> kombu.Producer | None: ...
-    def __enter__(self) -> EventDispatcher: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...

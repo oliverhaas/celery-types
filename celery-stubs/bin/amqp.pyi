@@ -1,5 +1,5 @@
-from typing import Any
-
 import click
 
-def amqp(ctx: click.Context, **kwargs: Any) -> Any: ...
+__all__ = ("amqp",)
+
+amqp: click.Group

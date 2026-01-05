@@ -4,6 +4,21 @@ from importlib.metadata import EntryPoints
 from types import ModuleType
 from typing import Any
 
+__all__ = (
+    "NotAPackage",
+    "cwd_in_path",
+    "find_module",
+    "gen_task_name",
+    "import_from_cwd",
+    "instantiate",
+    "module_file",
+    "qualname",
+    "reload_from_cwd",
+    "symbol_by_name",
+)
+
+class NotAPackage(Exception): ...
+
 @contextmanager
 def cwd_in_path() -> Iterator[None]: ...
 def entry_points(**params: Any) -> EntryPoints: ...

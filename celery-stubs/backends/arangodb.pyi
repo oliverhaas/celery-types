@@ -2,16 +2,23 @@ from typing import Any
 
 from celery.backends.base import KeyValueStoreBackend
 
+__all__ = ("ArangoDbBackend",)
+
 class ArangoDbBackend(KeyValueStoreBackend):
-    def __init__(
-        self,
-        url: str | None = None,
-        host: str | None = None,
-        port: int | None = None,
-        database: str | None = None,
-        collection: str | None = None,
-        username: str | None = None,
-        password: str | None = None,
-        http_protocol: str | None = None,
-        **kwargs: Any,
-    ) -> None: ...
+    host: str
+    port: str
+    database: str
+    collection: str
+    http_protocol: str
+    username: str | None
+    password: str | None
+    verify: bool
+    key_t: type[str]  # type: ignore[assignment]
+
+    @property
+    def connection(self) -> Any: ...
+    @property
+    def db(self) -> Any: ...
+    @property
+    def expires_delta(self) -> float: ...
+    def __init__(self, url: str | None = None, *args: Any, **kwargs: Any) -> None: ...

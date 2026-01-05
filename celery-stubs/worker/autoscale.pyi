@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("Autoscaler", "WorkerComponent")
+
 from celery.bootsteps import StartStopStep
 from celery.concurrency.base import BasePool
 from celery.utils.threads import bgThread

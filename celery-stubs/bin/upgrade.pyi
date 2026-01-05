@@ -1,5 +1,5 @@
-from typing import Any
-
 import click
+from celery.bin.base import CeleryCommand
 
-def upgrade(ctx: click.Context, **kwargs: Any) -> Any: ...
+upgrade: click.Group
+settings: CeleryCommand

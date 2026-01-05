@@ -2,10 +2,13 @@ from typing import Any
 
 from celery.backends.base import KeyValueStoreBackend
 
+__all__ = ("ConsulBackend",)
+
 class ConsulBackend(KeyValueStoreBackend):
-    def __init__(
-        self,
-        url: str | None = None,
-        one_client: bool | None = None,
-        **kwargs: Any,
-    ) -> None: ...
+    consistency: str
+    path: str | None
+    consul: Any
+
+    @property
+    def client(self) -> Any: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...

@@ -2,6 +2,8 @@ from typing import Any
 
 from celery.backends.base import KeyValueStoreBackend
 
+__all__ = ("AzureBlockBlobBackend",)
+
 class AzureBlockBlobBackend(KeyValueStoreBackend):
     def __init__(
         self,

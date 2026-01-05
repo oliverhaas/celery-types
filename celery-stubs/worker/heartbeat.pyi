@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("Heart",)
+
 class Heart:
     def __init__(
         self,

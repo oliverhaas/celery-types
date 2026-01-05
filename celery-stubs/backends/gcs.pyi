@@ -2,12 +2,9 @@ from typing import Any
 
 from celery.backends.base import KeyValueStoreBackend
 
+__all__ = ("GCSBackend",)
+
 class GCSBackend(KeyValueStoreBackend):
-    def __init__(
-        self,
-        url: str | None = None,
-        bucket: str | None = None,
-        base_path: str | None = None,
-        project: str | None = None,
-        **kwargs: Any,
-    ) -> None: ...
+    @property
+    def firestore_client(self) -> Any: ...
+    def __init__(self, **kwargs: Any) -> None: ...

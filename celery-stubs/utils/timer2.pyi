@@ -1,41 +1,115 @@
 from collections.abc import Callable
 from threading import Thread
-from typing import Any
+from types import TracebackType
+from typing import Any, Self
+from zoneinfo import ZoneInfo
+
+__all__ = ("Entry", "Schedule", "Timer", "to_timestamp")
+
+def to_timestamp(
+    d: Any,
+    default_timezone: ZoneInfo = ...,
+    time: Callable[[], float] = ...,
+) -> float: ...
+
+class Entry:
+    fun: Callable[..., Any]
+    args: tuple[Any, ...] | None
+    kwargs: dict[str, Any] | None
+    tref: Any
+    canceled: bool
+
+    def __init__(
+        self,
+        fun: Callable[..., Any],
+        args: tuple[Any, ...] | None = None,
+        kwargs: dict[str, Any] | None = None,
+    ) -> None: ...
+    def __call__(self) -> Any: ...
+    def __lt__(self, other: Entry) -> bool: ...
+    def __gt__(self, other: Entry) -> bool: ...
+    def __le__(self, other: Entry) -> bool: ...
+    def __ge__(self, other: Entry) -> bool: ...
+    def cancel(self) -> None: ...
+    @property
+    def cancelled(self) -> bool: ...
+
+_Entry = Entry
 
 class Schedule:
-    queue: list[Entry]
+    Entry: type[_Entry]
+    on_error: Callable[[Exception], None] | None
+
     def __init__(
         self,
         max_interval: float | None = None,
         on_error: Callable[[Exception], None] | None = None,
     ) -> None: ...
-    def enter_at(
-        self, entry: Entry, eta: float | None = None, priority: int = 0
-    ) -> Entry: ...
-    def enter_after(self, secs: float, entry: Entry, priority: int = 0) -> Entry: ...
-    def cancel(self, tref: Any) -> None: ...
-    def clear(self) -> None: ...
-    def empty(self) -> bool: ...
-    @property
-    def next(self) -> Entry | None: ...
-
-class Entry:
-    fun: Callable[..., Any]
-    args: tuple[Any, ...]
-    kwargs: dict[str, Any]
-    tref: Any
-
-    def __init__(
+    def __enter__(self) -> Self: ...
+    def __exit__(
         self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None: ...
+    def __iter__(
+        self,
+        min: Callable[..., Any] = ...,
+        nowfun: Callable[[], float] = ...,
+        pop: Callable[..., Any] = ...,
+        push: Callable[..., Any] = ...,
+    ) -> Self: ...
+    def __len__(self) -> int: ...
+    def apply_entry(self, entry: _Entry) -> Any: ...
+    def call_after(
+        self,
+        secs: float,
         fun: Callable[..., Any],
         args: tuple[Any, ...] = (),
         kwargs: dict[str, Any] | None = None,
+        priority: int = 0,
+    ) -> _Entry: ...
+    def call_at(
+        self,
+        eta: float,
+        fun: Callable[..., Any],
+        args: tuple[Any, ...] = (),
+        kwargs: dict[str, Any] | None = None,
+        priority: int = 0,
+    ) -> _Entry: ...
+    def call_repeatedly(
+        self,
+        secs: float,
+        fun: Callable[..., Any],
+        args: tuple[Any, ...] = (),
+        kwargs: dict[str, Any] | None = None,
+        priority: int = 0,
+    ) -> _Entry: ...
+    def cancel(self, tref: Any) -> None: ...
+    def clear(self) -> None: ...
+    def enter_at(
+        self,
+        entry: _Entry,
+        eta: float | None = None,
+        priority: int = 0,
+        time: Callable[[], float] = ...,
+    ) -> _Entry: ...
+    def enter_after(
+        self,
+        secs: float,
+        entry: _Entry,
+        priority: int = 0,
+        time: Callable[[], float] = ...,
+    ) -> _Entry: ...
+    def handle_error(
+        self, exc_info: tuple[type[BaseException], BaseException, TracebackType | None]
     ) -> None: ...
-    def __call__(self) -> Any: ...
-    def cancel(self) -> None: ...
-    def cancelled(self) -> bool: ...
+    @property
+    def queue(self) -> list[_Entry]: ...
+    @property
+    def schedule(self) -> Any: ...
+    def stop(self) -> None: ...
 
-_Entry = Entry
 _Schedule = Schedule
 
 class Timer(Thread):
@@ -47,11 +121,15 @@ class Timer(Thread):
     def __init__(
         self,
         schedule: Any | None = None,
-        on_tick: Callable[[float], None] | None = None,
         on_error: Callable[[Exception], None] | None = None,
+        on_tick: Callable[[float], None] | None = None,
+        on_start: Callable[[Timer], None] | None = None,
         max_interval: float | None = None,
         **kwargs: Any,
     ) -> None: ...
+    def __bool__(self) -> bool: ...
+    def __len__(self) -> int: ...
+    def __next__(self) -> _Entry: ...
     def call_after(
         self,
         secs: float,
@@ -79,8 +157,8 @@ class Timer(Thread):
     def enter(
         self,
         entry: _Entry,
-        eta: float | None = None,
-        priority: int = 0,
+        eta: float,
+        priority: int | None = None,
     ) -> _Entry: ...
     def enter_after(
         self,

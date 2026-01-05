@@ -1,5 +1,6 @@
-from typing import Any
-
 import click
+from celery.bin.base import CeleryCommand
 
-def graph(ctx: click.Context, **kwargs: Any) -> Any: ...
+graph: click.Group
+bootsteps: CeleryCommand
+workers: CeleryCommand

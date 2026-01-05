@@ -2,6 +2,9 @@ from typing import Any
 
 from celery.app.base import Celery
 from celery.events.state import State
+from typing_extensions import Self
+
+__all__ = ("Polaroid", "evcam")
 
 class Polaroid:
     app: Celery
@@ -29,17 +32,17 @@ class Polaroid:
     def capture(self) -> None: ...
     def cancel(self) -> None: ...
     def cleanup(self) -> None: ...
-    def __enter__(self) -> Polaroid: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...
 
 def evcam(
     camera: str,
-    app: Celery | None = None,
     freq: float = 1.0,
     maxrate: str | None = None,
-    loglevel: int | str | None = None,
+    loglevel: int = 0,
     logfile: str | None = None,
     pidfile: str | None = None,
     timer: Any | None = None,
+    app: Celery | None = None,
     **kwargs: Any,
 ) -> None: ...

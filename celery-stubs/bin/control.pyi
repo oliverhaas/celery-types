@@ -1,7 +1,5 @@
-from typing import Any
+from celery.bin.base import CeleryCommand
 
-import click
-
-def control(ctx: click.Context, **kwargs: Any) -> Any: ...
-def inspect(ctx: click.Context, **kwargs: Any) -> Any: ...
-def status(ctx: click.Context, **kwargs: Any) -> Any: ...
+control: CeleryCommand
+inspect: CeleryCommand
+status: CeleryCommand

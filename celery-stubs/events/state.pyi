@@ -1,10 +1,23 @@
 from collections.abc import Callable, Iterator
 from datetime import datetime
+from decimal import Decimal
 from typing import Any
+
+from kombu.utils.objects import cached_property
+
+__all__ = ("State", "Task", "Worker", "heartbeat_expires")
+
+def heartbeat_expires(
+    timestamp: float,
+    freq: float = 60,
+    expire_window: float = 200,
+    Decimal: type[Decimal] = ...,
+    float: type[float] = ...,
+    isinstance: Callable[..., bool] = ...,
+) -> float: ...
 
 class Task:
     # Attributes based on runtime inspection
-    id: str | None
     uuid: str
     name: str | None
     state: str
@@ -28,16 +41,20 @@ class Task:
     client: str | None
     clock: int | None
     timestamp: float | None
-    origin: str | None
-    root: str | None
     root_id: str | None
-    parent: str | None
     parent_id: str | None
     exchange: str | None
     routing_key: str | None
     runtime: float | None
 
     merge_rules: dict[str, Any]
+
+    @property
+    def id(self) -> str | None: ...
+    @property
+    def origin(self) -> str | None: ...
+    root: cached_property[str | None]
+    parent: cached_property[str | None]
 
     def __init__(
         self,
@@ -47,7 +64,15 @@ class Task:
         **kwargs: Any,
     ) -> None: ...
     def event(
-        self, type_: str | None, timestamp: float | None = None, **fields: Any
+        self,
+        type_: str | None,
+        timestamp: float | None = None,
+        local_received: float | None = None,
+        fields: dict[str, Any] | None = None,
+        precedence: Callable[..., int] = ...,
+        setattr: Callable[..., None] = ...,
+        task_event_to_state: Callable[..., str | None] = ...,
+        RETRY: str = "RETRY",
     ) -> str | None: ...
     def info(
         self,
@@ -55,11 +80,11 @@ class Task:
         extra: list[str] | None = None,
     ) -> dict[str, Any]: ...
     def as_dict(self) -> dict[str, Any]: ...
+    @property
     def ready(self) -> bool: ...
 
 class Worker:
     hostname: str
-    id: str | None
     pid: int | None
     freq: float
     heartbeats: list[float]
@@ -72,7 +97,10 @@ class Worker:
     sw_sys: str | None
     expire_window: float
     heartbeat_max: int
+    event: Any  # member_descriptor at runtime
 
+    @property
+    def id(self) -> str | None: ...
     def __init__(
         self,
         hostname: str | None = None,
@@ -86,15 +114,12 @@ class Worker:
         sw_ident: str | None = None,
         sw_ver: str | None = None,
         sw_sys: str | None = None,
-        **kwargs: Any,
     ) -> None: ...
     def update(
         self,
-        **fields: Any,
+        f: dict[str, Any],
+        **kw: Any,
     ) -> None: ...
-    def event(
-        self, type_: str | None, timestamp: float | None = None, **fields: Any
-    ) -> str | None: ...
     @property
     def heartbeat_expires(self) -> float: ...
     @property
@@ -125,8 +150,12 @@ class State:
         max_tasks_in_memory: int = 10000,
         on_node_join: Callable[..., Any] | None = None,
         on_node_leave: Callable[..., Any] | None = None,
+        tasks_by_type: Callable[..., Any] | None = None,
+        tasks_by_worker: Callable[..., Any] | None = None,
     ) -> None: ...
-    def freeze_while(self, f: Callable[..., Any], *args: Any, **kwargs: Any) -> Any: ...
+    def freeze_while(
+        self, fun: Callable[..., Any], *args: Any, **kwargs: Any
+    ) -> Any: ...
     def clear_tasks(self, ready: bool = True) -> None: ...
     def clear(self, ready: bool = True) -> None: ...
     def get_or_create_worker(

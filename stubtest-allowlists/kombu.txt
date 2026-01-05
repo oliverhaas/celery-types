@@ -1,0 +1,11 @@
+# Kombu stubtest allowlist
+# This file contains items that are difficult or impossible to type correctly
+
+# gcpubsub.Transport.channel_errors - complex runtime tuple type that's hard to express
+kombu.transport.gcpubsub.Transport.channel_errors
+
+# librabbitmq is an optional dependency not installed
+kombu.transport.librabbitmq
+
+# kombu bug: reprkwargs is in __all__ but not actually defined at runtime
+kombu.utils.__all__

@@ -2,12 +2,27 @@ from typing import Any
 
 from celery.backends.base import Backend
 
+__all__ = ("MongoBackend",)
+
 class MongoBackend(Backend):
-    def __init__(
-        self,
-        url: str | None = None,
-        database: str | None = None,
-        taskmeta_collection: str | None = None,
-        groupmeta_collection: str | None = None,
-        **kwargs: Any,
-    ) -> None: ...
+    host: str
+    port: int
+    database_name: str
+    taskmeta_collection: str
+    groupmeta_collection: str
+    options: dict[str, Any] | None
+    mongo_host: str | None
+    max_pool_size: int
+    user: str | None
+    password: str | None
+
+    @property
+    def collection(self) -> Any: ...
+    @property
+    def database(self) -> Any: ...
+    @property
+    def group_collection(self) -> Any: ...
+    @property
+    def expires_delta(self) -> float: ...
+    def __init__(self, app: Any = None, **kwargs: Any) -> None: ...
+    def decode(self, data: Any) -> Any: ...

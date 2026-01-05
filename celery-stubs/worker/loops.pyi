@@ -1,5 +1,7 @@
 from typing import Any
 
+__all__ = ("asynloop", "synloop")
+
 def asynloop(
     obj: Any,
     connection: Any,
@@ -10,7 +12,6 @@ def asynloop(
     heartbeat: float,
     clock: Any,
     hbrate: float = 2.0,
-    RUN: int = ...,
 ) -> None: ...
 def synloop(
     obj: Any,
@@ -22,5 +23,5 @@ def synloop(
     heartbeat: float,
     clock: Any,
     hbrate: float = 2.0,
-    RUN: int = ...,
+    **kwargs: Any,
 ) -> None: ...

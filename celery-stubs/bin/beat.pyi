@@ -1,5 +1,3 @@
-from typing import Any
+from celery.bin.base import CeleryDaemonCommand
 
-import click
-
-def beat(ctx: click.Context, **kwargs: Any) -> Any: ...
+beat: CeleryDaemonCommand

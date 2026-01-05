@@ -1,6 +1,6 @@
 from typing import Any
 
-__all__: tuple[str, ...]
+__all__ = ()
 
 def add_backend_cleanup_task(app: Any) -> Any: ...
 def add_accumulate_task(app: Any) -> Any: ...

@@ -1,5 +1,5 @@
-from typing import Any
-
 import click
+from celery.bin.base import CeleryCommand
 
-def list_(ctx: click.Context, **kwargs: Any) -> Any: ...
+list_: click.Group
+bindings: CeleryCommand

@@ -1,0 +1,5 @@
+# Billiard stubtest allowlist
+# This file contains items that are difficult or impossible to type correctly
+
+# Windows-only module - cannot be imported on Linux
+billiard.popen_spawn_win32

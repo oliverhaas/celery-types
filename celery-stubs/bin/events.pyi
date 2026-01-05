@@ -1,5 +1,3 @@
-from typing import Any
+from celery.bin.base import CeleryDaemonCommand
 
-import click
-
-def events(ctx: click.Context, **kwargs: Any) -> Any: ...
+events: CeleryDaemonCommand

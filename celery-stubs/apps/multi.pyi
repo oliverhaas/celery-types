@@ -2,7 +2,7 @@ from abc import ABCMeta
 from collections import UserList
 from collections.abc import Callable, Sequence
 from signal import Signals
-from typing import Any
+from typing import Any, TypeAlias
 
 __all__ = ("Cluster", "Node")
 
@@ -98,3 +98,41 @@ class Node:
     def logfile(self) -> str | None: ...
     @property
     def pidfile(self) -> str | None: ...
+
+# Type alias for use inside MultiParser where the class attribute shadows the module-level class
+_Node: TypeAlias = Node
+
+class MultiParser:
+    Node: type  # type[Node] at runtime
+    cmd: str
+    append: str
+    prefix: str
+    suffix: str
+    range_prefix: str
+
+    def __init__(
+        self,
+        cmd: str = "celery worker",
+        append: str = "",
+        prefix: str = "",
+        suffix: str = "",
+        range_prefix: str = "celery",
+    ) -> None: ...
+    def parse(self, p: list[str]) -> tuple[list[_Node], list[str]]: ...
+
+class NamespacedOptionParser:
+    args: list[str]
+    options: dict[str, dict[str, Any]]
+    values: list[str]
+    passthrough: str
+
+    def __init__(self, args: list[str]) -> None: ...
+    def add_option(
+        self, name: str, value: str, short: bool = False, ns: str | None = None
+    ) -> None: ...
+    def optmerge(
+        self, ns: str, defaults: dict[str, Any] | None = None
+    ) -> dict[str, Any]: ...
+    def parse(self) -> tuple[dict[str, dict[str, Any]], list[str]]: ...
+    def process_long_opt(self, arg: str, value: str | None = None) -> None: ...
+    def process_short_opt(self, arg: str, value: str | None = None) -> None: ...
