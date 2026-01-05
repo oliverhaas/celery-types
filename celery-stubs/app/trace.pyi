@@ -2,7 +2,7 @@ from collections.abc import Callable
 from logging import Logger
 from typing import Any
 
-__all__: tuple[str, ...]
+__all__ = ("TraceInfo", "build_tracer", "trace_task", "setup_worker_optimizations", "reset_worker_optimizations")
 
 from celery.app.base import Celery
 from celery.app.task import Task
@@ -11,7 +11,7 @@ class TraceInfo:
     state: str
     retval: Any
 
-    def __init__(self, state: str, retval: Any) -> None: ...
+    def __init__(self, state: str, retval: Any = None) -> None: ...
     def handle_error_state(
         self,
         task: Task[..., Any],
@@ -28,14 +28,14 @@ class TraceInfo:
     ) -> None: ...
     def handle_ignore(self, task: Task[..., Any], req: Any) -> None: ...
     def handle_reject(
-        self, task: Task[..., Any], req: Any, requeue: bool = False
+        self, task: Task[..., Any], req: Any, **kwargs: Any
     ) -> None: ...
     def handle_retry(
         self,
         task: Task[..., Any],
         req: Any,
         store_errors: bool = True,
-        I: Any = None,
+        **kwargs: Any,
     ) -> None: ...
 
 def build_tracer(
@@ -68,7 +68,7 @@ def trace_task_ret(
     content_type: str,
     content_encoding: str,
     loads: Callable[..., Any] = ...,
-    _: Any = None,
+    app: Any = None,
     **extra_request: Any,
 ) -> TraceInfo: ...
 def fast_trace_task(
@@ -79,12 +79,11 @@ def fast_trace_task(
     content_type: str,
     content_encoding: str,
     loads: Callable[..., Any] = ...,
-    _: Any = None,
-    __: Any = None,
+    _loc: Any = None,
     hostname: str | None = None,
     **extra_request: Any,
 ) -> TraceInfo: ...
 def setup_worker_optimizations(app: Celery, hostname: str | None = None) -> None: ...
-def reset_worker_optimizations() -> None: ...
+def reset_worker_optimizations(app: Any = ...) -> None: ...
 
 logger: Logger

@@ -40,9 +40,9 @@ class AppPickler:
         loader: Any,
         backend: Any,
         amqp: Any,
-        events_: Any,
+        events: Any,  # noqa: F811
         log: Any,
-        control_: Any,
+        control: Any,  # noqa: F811
         accept_magic_kwargs: bool,
         config_source: Any | None = None,
     ) -> dict[str, Any]: ...

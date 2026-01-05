@@ -1,0 +1,67 @@
+# Signal types: None at class level, Signal at instance level (lazy initialization)
+celery.Celery.on_after_configure
+celery.Celery.on_after_finalize
+celery.Celery.on_after_fork
+celery.Celery.on_configure
+celery.app.Celery.on_after_configure
+celery.app.Celery.on_after_finalize
+celery.app.Celery.on_after_fork
+celery.app.Celery.on_configure
+celery.app.base.Celery.on_after_configure
+celery.app.base.Celery.on_after_finalize
+celery.app.base.Celery.on_after_fork
+celery.app.base.Celery.on_configure
+
+# getitem_property: Celery's custom descriptor that stubtest can't reconcile with @property
+celery.Signature.args
+celery.Signature.id
+celery.Signature.immutable
+celery.Signature.kwargs
+celery.Signature.options
+celery.Signature.parent_id
+celery.Signature.root_id
+celery.Signature.task
+celery.Task.app
+celery.group.tasks
+celery.app.task.Task.app
+celery.canvas.Signature.args
+celery.canvas.Signature.id
+celery.canvas.Signature.immutable
+celery.canvas.Signature.kwargs
+celery.canvas.Signature.options
+celery.canvas.Signature.parent_id
+celery.canvas.Signature.root_id
+celery.canvas.Signature.task
+celery.canvas.group.tasks
+celery.canvas._chain.tasks
+celery.worker.consumer.Consumer.loop_args
+celery.worker.consumer.consumer.Consumer.loop_args
+
+# __all__ export differences (runtime includes __doc__, __file__, __package__, __path__)
+celery.__all__
+
+# StepType.requires - class attribute that's None at class level
+celery.bootsteps.StepType.requires
+
+# Variables that have default values at module level
+celery.worker.state.C_BENCH
+celery.worker.state.should_stop
+celery.worker.state.should_terminate
+
+# EventDispatcher/EventReceiver.app - passed at init
+celery.events.dispatcher.EventDispatcher.app
+celery.events.EventDispatcher.app
+celery.events.EventReceiver.app
+celery.events.receiver.EventReceiver.app
+
+# Pidfile.path - set at init
+celery.platforms.Pidfile.path
+
+# AsyncResult attributes - set at init
+celery.result.AsyncResult.app
+celery.result.AsyncResult.backend
+celery.result.AsyncResult.id
+
+# UnpickleableExceptionWrapper - set at init
+celery.utils.serialization.UnpickleableExceptionWrapper.exc_args
+celery.utils.serialization.UnpickleableExceptionWrapper.exc_module

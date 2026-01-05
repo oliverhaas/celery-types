@@ -3,13 +3,19 @@ from typing import Any, TypeVar
 
 _F = TypeVar("_F", bound=_Callable[..., Any])
 
-def deprecated(
+DEPRECATION_FMT: str
+PENDING_DEPRECATION_FMT: str
+
+class CDeprecationWarning(UserWarning): ...
+class CPendingDeprecationWarning(PendingDeprecationWarning): ...
+
+def warn(
     description: str = "",
     deprecation: str | None = None,
     removal: str | None = None,
     alternative: str | None = None,
     stacklevel: int = 2,
-) -> _Callable[[_F], _F]: ...
+) -> None: ...
 
 class Callable:
     def __init__(

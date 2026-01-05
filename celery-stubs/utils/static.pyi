@@ -1,8 +1,5 @@
-from typing import Any, Generic, TypeVar
+from typing import Any
 
-_T = TypeVar("_T")
+def get_file(filename: str) -> str: ...
 
-class static(Generic[_T]):
-    thing: _T
-    def __init__(self, thing: _T) -> None: ...
-    def __call__(self) -> _T: ...
+logo: str

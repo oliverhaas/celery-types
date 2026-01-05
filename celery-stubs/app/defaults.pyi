@@ -1,7 +1,8 @@
 from builtins import type as _type
+from collections.abc import Callable
 from typing import Any
 
-__all__: tuple[str, ...]
+__all__ = ("Option", "NAMESPACES", "flatten", "find")
 
 class Option:
     default: Any
@@ -14,18 +15,16 @@ class Option:
 
     def __init__(
         self,
-        default: Any,
-        type: str | _type | None = None,  # noqa: A002
-        deprecate_by: str | None = None,
-        remove_by: str | None = None,
-        alt: tuple[str, ...] | None = None,
+        default: Any = None,
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     def to_python(self, value: Any) -> Any: ...
 
 DEFAULTS: dict[str, dict[str, Any]]
 NAMESPACES: dict[str, dict[str, Option]]
-SETTING_KEYS: frozenset[str]
+SETTING_KEYS: set[str]
 
 def find(name: str, namespace: str = "celery") -> tuple[str, Option] | None: ...
-def flatten(d: dict[str, dict[str, Any]], ns: str = "") -> dict[str, Any]: ...
-def strtobool(term: str | bool | int | None) -> bool: ...
+def flatten(d: dict[str, dict[str, Any]], root: str = "", keyfilter: Callable[..., Any] = ...) -> dict[str, Any]: ...
+def strtobool(term: str | bool | int | None, table: dict[str, bool] | None = None) -> bool: ...

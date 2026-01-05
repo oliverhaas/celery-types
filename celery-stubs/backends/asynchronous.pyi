@@ -4,6 +4,7 @@ from typing import Any
 from celery.backends.base import Backend
 
 class AsyncBackendMixin:
+    is_async: bool
     def wait_for_pending(
         self,
         result: Any,
@@ -14,16 +15,14 @@ class AsyncBackendMixin:
     def add_pending_result(
         self, result: Any, weak: bool = False, start: bool = True
     ) -> Any: ...
-    def remove_pending_result(self, result: Any) -> None: ...
-    def drain_events_until(
-        self,
-        p: Callable[[], bool],
-        on_interval: Callable[..., Any] | None = None,
-        wait: float | None = None,
-        timeout: float | None = None,
+    def add_pending_results(
+        self, results: list[Any], weak: bool = False, start: bool = True
     ) -> None: ...
+    def remove_pending_result(self, result: Any) -> None: ...
     def on_result_fulfilled(self, result: Any) -> None: ...
-    def ensure_chords_allowed(self) -> None: ...
+    def iter_native(
+        self, result: Any, timeout: float | None = None, **kwargs: Any
+    ) -> Any: ...
 
 class BaseResultConsumer:
     def __init__(self, backend: Backend, **kwargs: Any) -> None: ...
