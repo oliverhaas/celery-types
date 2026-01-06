@@ -32,3 +32,6 @@ jobs:
 
       - name: Run mypy
         run: uv run mypy tests
+
+      - name: Run ty
+        run: uv run ty check tests
