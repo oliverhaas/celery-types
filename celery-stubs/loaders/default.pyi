@@ -8,6 +8,7 @@ DEFAULT_CONFIG_MODULE: str
 
 class Loader(BaseLoader):
     def read_configuration(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, fail_silently: bool = True  # type: ignore[override]
+        self,
+        fail_silently: bool = True,  # type: ignore[override]
     ) -> dict[str, Any]: ...
     def setup_settings(self, settingsdict: dict[str, Any]) -> dict[str, Any]: ...
