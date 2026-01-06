@@ -9,6 +9,13 @@ from typing_extensions import Self
 
 __all__ = ("Management", "Message", "StdChannel", "Transport")
 
+class Implements(dict[str, Any]):
+    """Helper class used to define transport features."""
+
+    def __getattr__(self, key: str) -> Any: ...
+    def __setattr__(self, key: str, value: Any) -> None: ...
+    def extend(self, **kwargs: Any) -> Implements: ...
+
 # Forward reference for Management to avoid name collision with Transport.Management
 _ManagementType: TypeAlias = Management
 
@@ -29,7 +36,7 @@ class Transport:
     driver_name: str
     recoverable_connection_errors: tuple[type[BaseException], ...]
     recoverable_channel_errors: tuple[type[BaseException], ...]
-    implements: dict[str, Any]
+    implements: Implements
 
     def __init__(self, client: Connection, **kwargs: Any) -> None: ...
     def establish_connection(self) -> Any: ...
