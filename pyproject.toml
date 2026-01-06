@@ -1,6 +1,6 @@
 [project]
 name = "celery-types-ng"
-version = "0.25.2"
+version = "0.25.3"
 description = "Type stubs for Celery and its related packages"
 authors = [{ name = "Steve Dignam", email = "steve@dignam.xyz" }]
 requires-python = ">=3.10,<4"
@@ -59,6 +59,10 @@ dev = [
     "pycurl>=7.45.7",
     "confluent-kafka>=2.12.2",
     "google-cloud-monitoring>=2.28.0",
+    "monkeytype>=23.3.0",
+    "hypothesis>=6.150.0",
+    "pytest-cov>=7.0.0",
+    "pytest-sugar>=1.1.1",
 ]
 
 
