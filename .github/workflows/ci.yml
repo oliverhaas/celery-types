@@ -28,7 +28,7 @@ jobs:
         run: uv run ruff check
 
       - name: Run basedpyright
-        run: uv run basedpyright typings tests
+        run: uv run basedpyright tests
 
       - name: Run mypy
         run: uv run mypy tests

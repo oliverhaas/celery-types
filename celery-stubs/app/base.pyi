@@ -70,11 +70,11 @@ class Celery(Generic[_T_Global]):
     user_options: dict[str, Any] | None
     builtin_fixups: set[str]
 
-    # Signals (class attrs are None, but set to Signal on instances in __init__)
-    on_configure: Signal | None
-    on_after_configure: Signal | None
-    on_after_finalize: Signal | None
-    on_after_fork: Signal | None
+    # Signals (always set on instances in __init__)
+    on_configure: Signal
+    on_after_configure: Signal
+    on_after_finalize: Signal
+    on_after_fork: Signal
 
     # Reduce methods for pickling
     def __reduce_args__(self) -> tuple[Any, ...]: ...
