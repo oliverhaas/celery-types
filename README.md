@@ -1,4 +1,7 @@
-# celery-types 
+# celery-types
+
+> **Note:** This is a temporary fork of [celery-types](https://github.com/sbdchd/celery-types) with additional stub fixes and improvements. The goal is to eventually merge these changes upstream. If you're looking for the original package, please visit the upstream repository.
+
 [![PyPI](https://img.shields.io/pypi/v/celery-types.svg)](https://pypi.org/project/celery-types/)
 [![Downloads](https://static.pepy.tech/personalized-badge/celery-types?period=month&units=international_system&left_color=black&right_color=orange&left_text=PyPI%20downloads%20per%20month)](https://pepy.tech/project/celery-types)
 ![PyPI - Types](https://img.shields.io/pypi/types/celery-types)

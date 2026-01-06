@@ -1,10 +1,8 @@
+name: CI
+
 on:
-  push:
-    branches:
-      - master
-    tags:
-      - "**"
   pull_request:
+    branches: [main-ng]
 
 jobs:
   test:
@@ -16,19 +14,21 @@ jobs:
         uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
-          python-version: "3.10"
+
+      - name: Set up Python
+        run: uv python install 3.13
 
       - name: Install dependencies
         run: uv sync
 
-      - name: Format check
+      - name: Run ruff format check
         run: uv run ruff format --check
 
-      - name: Lint
+      - name: Run ruff check
         run: uv run ruff check
 
-      - name: Type check (basedpyright)
+      - name: Run basedpyright
         run: uv run basedpyright typings tests
 
-      - name: Type check (mypy)
+      - name: Run mypy
         run: uv run mypy tests
