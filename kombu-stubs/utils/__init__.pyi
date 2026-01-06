@@ -3,11 +3,12 @@ from contextlib import contextmanager
 from typing import Any, BinaryIO, TextIO
 from uuid import UUID
 
+from kombu.utils.functional import reprkwargs as reprkwargs
 from kombu.utils.functional import retry_over_time as retry_over_time
 from kombu.utils.objects import cached_property as cached_property
 
-# Note: runtime __all__ includes reprkwargs but it's not actually defined in kombu (kombu bug)
-# We omit it here since stubtest will error either way (missing from __all__ or missing at runtime)
+# Note: runtime __all__ includes reprkwargs but it's not actually imported in kombu (kombu bug)
+# We include it here to match runtime __all__, stubtest allowlist handles the missing definition
 __all__ = (
     "EqualityDict",
     "cached_property",
@@ -20,6 +21,7 @@ __all__ = (
     "nested",
     "register_after_fork",
     "reprcall",
+    "reprkwargs",
     "retry_over_time",
     "symbol_by_name",
     "uuid",

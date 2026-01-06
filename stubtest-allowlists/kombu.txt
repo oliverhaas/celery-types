@@ -7,5 +7,5 @@ kombu.transport.gcpubsub.Transport.channel_errors
 # librabbitmq is an optional dependency not installed
 kombu.transport.librabbitmq
 
-# kombu bug: reprkwargs is in __all__ but not actually defined at runtime
-kombu.utils.__all__
+# kombu bug: reprkwargs is in __all__ but not actually imported at runtime
+kombu.utils.reprkwargs
