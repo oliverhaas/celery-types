@@ -125,17 +125,20 @@ class Channel(AbstractChannel, StdChannel):
     max_priority: int
     deadletter_queue: str | None
 
-    connection: Connection
+    connection: Transport
 
+    closed: bool
+    _active_queues: list[str]
     _delivery_tags: Iterable[int]
-    _consumers: dict[str, Any]
+    _consumers: set[str]
     _cycle: FairCycle | None
     _qos: _QoSType | None
     _tag_to_queue: dict[str, str]
 
     from_transport_options: tuple[str, ...]
 
-    def __init__(self, connection: Connection, **kwargs: Any) -> None: ...
+    # NOTE: Despite the name, 'connection' is actually a Transport (from establish_connection())
+    def __init__(self, connection: Transport, **kwargs: Any) -> None: ...
     def exchange_declare(
         self,
         exchange: str | None = ...,
