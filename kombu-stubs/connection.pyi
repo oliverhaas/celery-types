@@ -3,8 +3,10 @@ from contextlib import contextmanager
 from types import TracebackType
 from typing import Any, TypeVar
 
-from kombu.messaging import Consumer, Producer
-from kombu.simple import SimpleBuffer, SimpleQueue
+from kombu.messaging import Consumer as _Consumer
+from kombu.messaging import Producer as _Producer
+from kombu.simple import SimpleBuffer as _SimpleBuffer
+from kombu.simple import SimpleQueue as _SimpleQueue
 from kombu.transport.base import Management, StdChannel, Transport
 from kombu.utils.objects import cached_property
 from typing_extensions import Self, override
@@ -153,17 +155,17 @@ class Connection:
         getfields: Callable[..., Any] | None = ...,
     ) -> str: ...
     def Pool(self, limit: int | None = ..., **kwargs: Any) -> ConnectionPool: ...
-    def ChannelPool(self, limit: int | None = ..., **kwargs: Any) -> ChannelPool: ...
+    def ChannelPool(self, limit: int | None = ..., **kwargs: Any) -> ChannelPool: ...  # ty: ignore[invalid-type-form]
     def Producer(
         self, channel: StdChannel | None = ..., *args: Any, **kwargs: Any
-    ) -> Producer: ...
+    ) -> _Producer: ...
     def Consumer(
         self,
         queues: Any | None = ...,
         channel: StdChannel | None = ...,
         *args: Any,
         **kwargs: Any,
-    ) -> Consumer: ...
+    ) -> _Consumer: ...
     def SimpleQueue(
         self,
         name: str,
@@ -173,7 +175,7 @@ class Connection:
         exchange_opts: dict[str, Any] | None = ...,
         channel: StdChannel | None = ...,
         **kwargs: Any,
-    ) -> SimpleQueue: ...
+    ) -> _SimpleQueue: ...
     def SimpleBuffer(
         self,
         name: str,
@@ -183,7 +185,7 @@ class Connection:
         exchange_opts: dict[str, Any] | None = ...,
         channel: StdChannel | None = ...,
         **kwargs: Any,
-    ) -> SimpleBuffer: ...
+    ) -> _SimpleBuffer: ...
     def supports_exchange_type(self, exchange_type: str) -> bool: ...
     def _init_params(
         self,
@@ -297,7 +299,7 @@ class ChannelPool(Resource):
     @override
     def setup(self) -> None: ...
     @override
-    def prepare(self, channel: StdChannel) -> StdChannel: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def prepare(self, channel: StdChannel) -> StdChannel: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
     @override
     def release_resource(self, resource: StdChannel) -> None: ...
     @override

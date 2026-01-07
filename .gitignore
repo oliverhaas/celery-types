@@ -8,3 +8,6 @@ __pycache__
 monkeytype.sqlite3
 .hypothesis/
 control/
+
+# MonkeyType databases
+monkeytype*.sqlite3

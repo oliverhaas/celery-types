@@ -7,7 +7,7 @@ __all__ = ("DEFAULT_CONFIG_MODULE", "Loader")
 DEFAULT_CONFIG_MODULE: str
 
 class Loader(BaseLoader):
-    def read_configuration(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def read_configuration(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self,
         fail_silently: bool = True,  # type: ignore[override]
     ) -> dict[str, Any]: ...

@@ -26,11 +26,11 @@ class PoolGroup(dict[Any, Any]):
 
 class Connections(PoolGroup):
     @override
-    def create(self, connection: Connection, limit: int | None) -> ConnectionPool: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def create(self, connection: Connection, limit: int | None) -> ConnectionPool: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
 class Producers(PoolGroup):
     @override
-    def create(self, connection: Connection, limit: int | None) -> ProducerPool: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def create(self, connection: Connection, limit: int | None) -> ProducerPool: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
 class ProducerPool:
     Producer: type[_ProducerType]

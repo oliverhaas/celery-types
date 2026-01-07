@@ -30,12 +30,12 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 _R_co = TypeVar("_R_co", covariant=True, default=Any)
 
 class Signature(dict[str, Any], Generic[_R_co]):
-    TYPES: dict[str, type[Signature[Any]]]
+    TYPES: dict[str, type[Signature[Any]]]  # ty: ignore[invalid-type-form]
 
     @classmethod
     def register_type(
         cls, name: str | None = None
-    ) -> Callable[[type[Signature[Any]]], type[Signature[Any]]]: ...
+    ) -> Callable[[type[Signature[Any]]], type[Signature[Any]]]: ...  # ty: ignore[invalid-type-form]
     @classmethod
     def from_dict(
         cls, d: dict[str, Any], app: Celery | None = ...

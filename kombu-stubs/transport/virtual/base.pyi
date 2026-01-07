@@ -308,7 +308,7 @@ class Transport(BaseTransport):
     @override
     def create_channel(self, connection: Connection) -> _ChannelType: ...
     @override
-    def close_channel(self, channel: StdChannel) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def close_channel(self, channel: StdChannel) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
     @override
     def establish_connection(self) -> Self: ...
     @override

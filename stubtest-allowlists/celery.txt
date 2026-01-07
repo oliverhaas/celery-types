@@ -27,6 +27,21 @@ celery.canvas._chain.tasks
 # __all__ export differences (runtime includes __doc__, __file__, __package__, __path__)
 celery.__all__
 
+# Signal types: None at class level but Signal on instances (set in __init__)
+# Typed as Signal for user convenience since they're always set on instances
+celery.Celery.on_configure
+celery.Celery.on_after_configure
+celery.Celery.on_after_finalize
+celery.Celery.on_after_fork
+celery.app.Celery.on_configure
+celery.app.Celery.on_after_configure
+celery.app.Celery.on_after_finalize
+celery.app.Celery.on_after_fork
+celery.app.base.Celery.on_configure
+celery.app.base.Celery.on_after_configure
+celery.app.base.Celery.on_after_finalize
+celery.app.base.Celery.on_after_fork
+
 # SQLAlchemy model metaclass issues - inherits from DeclarativeMeta
 # stubtest checks class-level types (InstrumentedAttribute) but users access instance-level types
 celery.backends.database.models.Task

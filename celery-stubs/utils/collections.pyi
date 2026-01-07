@@ -1,7 +1,9 @@
 from collections import OrderedDict as _OrderedDict
 from collections import deque
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
-from typing import Any, Self, TypeVar, overload
+from typing import Any, TypeVar, overload
+
+from typing_extensions import Self
 
 __all__ = (
     "AttributeDict",

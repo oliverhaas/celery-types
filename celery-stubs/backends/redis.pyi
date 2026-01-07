@@ -37,7 +37,7 @@ class RedisBackend(KeyValueStoreBackend):
     def on_connection_error(
         self, max_retries: int, exc: Exception, intervals: Iterable[float], retries: int
     ) -> None: ...
-    def add_to_chord(self, group_id: str, result: Any) -> None: ...
+    def add_to_chord(self, group_id: str, result: Any) -> None: ...  # ty: ignore[invalid-method-override]
     def on_chord_part_return(
         self,
         request: Any,

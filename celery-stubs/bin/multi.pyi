@@ -26,7 +26,7 @@ class TermLogger:
     no_color: bool
 
     @property
-    def colored(self) -> colored: ...
+    def colored(self) -> colored: ...  # ty: ignore[invalid-type-form]
     def setup_terminal(
         self,
         stdout: IO[str] | None,

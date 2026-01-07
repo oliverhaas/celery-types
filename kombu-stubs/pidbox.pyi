@@ -84,7 +84,7 @@ class Mailbox:
     queue_exclusive: bool
     reply_queue_ttl: float | None
     reply_queue_expires: float | None
-    node_cls: builtins.type[Node]
+    node_cls: builtins.type[Node]  # ty: ignore[invalid-type-form]
 
     def __init__(
         self,
@@ -102,14 +102,14 @@ class Mailbox:
         reply_queue_ttl: float | None = ...,
         reply_queue_expires: float | None = ...,
     ) -> None: ...
-    def __call__(self, connection: Connection) -> Node: ...
+    def __call__(self, connection: Connection) -> Node: ...  # ty: ignore[invalid-type-form]
     def Node(
         self,
         hostname: str | None = ...,
         state: Any | None = ...,
         channel: StdChannel | None = ...,
         handlers: dict[str, Callable[..., Any]] | None = ...,
-    ) -> Node: ...
+    ) -> Node: ...  # ty: ignore[invalid-type-form]
     def get_queue(self, hostname: str) -> Queue: ...
     def get_reply_queue(self) -> Queue: ...
     @contextmanager
