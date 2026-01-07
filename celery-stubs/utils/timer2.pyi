@@ -2,9 +2,9 @@ from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from typing_extensions import Self
-from zoneinfo import ZoneInfo
 
 __all__ = ("Entry", "Schedule", "Timer", "to_timestamp")
 
