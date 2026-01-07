@@ -30,7 +30,7 @@ class barrier(Thenable):
     def cancel(self) -> None: ...
     def finalize(self) -> None: ...
     @override
-    def then(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def then(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self,
         callback: Callable[..., Any],
         errback: Callable[..., Any] | None = ...,

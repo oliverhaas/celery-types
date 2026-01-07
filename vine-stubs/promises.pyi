@@ -34,7 +34,7 @@ class promise(Thenable):
     @override
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     @override
-    def then(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def then(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self,
         callback: Callable[..., Any],
         on_error: Callable[..., Any] | None = ...,
