@@ -4,6 +4,8 @@ from collections.abc import Callable, Sequence
 from signal import Signals
 from typing import Any, TypeAlias
 
+from typing_extensions import override
+
 __all__ = ("Cluster", "Node")
 
 class Cluster(UserList[Node], metaclass=ABCMeta):
@@ -47,6 +49,7 @@ class Cluster(UserList[Node], metaclass=ABCMeta):
     def restart(self, sig: Signals = ...) -> None: ...
     def kill(self) -> None: ...
     @property
+    @override
     def data(self) -> list[Node]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleVariableOverride]  # override UserList.data
     def find(self, name: str) -> Node | None: ...
     def getpids(self, on_down: Callable[..., Any] | None = None) -> dict[str, int]: ...

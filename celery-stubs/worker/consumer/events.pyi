@@ -1,5 +1,7 @@
 from typing import Any, ClassVar
 
+from typing_extensions import override
+
 from celery.bootsteps import Step
 
 __all__ = ("Events",)
@@ -15,9 +17,12 @@ class Events(Step):
         without_gossip: bool = False,
         **kwargs: Any,
     ) -> None: ...
+    @override
     def create(self, parent: Any) -> Any: ...
     def start(self, c: Any) -> None: ...
     def stop(self, c: Any) -> None: ...
     def shutdown(self, c: Any) -> None: ...
+    @override
     def include_if(self, parent: Any) -> bool: ...
+    @override
     def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]

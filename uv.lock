@@ -209,7 +209,7 @@ wheels = [
 
 [[package]]
 name = "celery-types-ng"
-version = "0.25.4"
+version = "0.25.5"
 source = { editable = "." }
 dependencies = [
     { name = "typing-extensions" },

@@ -185,7 +185,9 @@ class EagerResult(AsyncResult[_R_co]):
         traceback: str | None = ...,
         name: str | None = ...,
     ) -> None: ...
+    @override
     def __copy__(self) -> EagerResult[_R_co]: ...
+    @override
     def __reduce_args__(self) -> tuple[str, _R_co, str, str | None]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     @override
     def get(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]

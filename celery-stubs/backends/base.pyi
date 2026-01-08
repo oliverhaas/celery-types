@@ -197,6 +197,7 @@ class BaseKeyValueStoreBackend(Backend):
         max_iterations: int | None = None,
         READY_STATES: frozenset[str] = ...,
     ) -> Any: ...
+    @override
     def on_chord_part_return(
         self, request: Any, state: str, result: Any, **kwargs: Any
     ) -> None: ...

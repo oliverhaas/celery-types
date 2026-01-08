@@ -1,6 +1,8 @@
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
+from typing_extensions import override
+
 from kombu.abstract import MaybeChannelBound, Object
 from kombu.message import Message as _Message
 from kombu.transport.base import StdChannel
@@ -79,8 +81,11 @@ class Exchange(MaybeChannelBound):
         unbind_arguments: dict[str, Any] | None = ...,
     ) -> binding: ...  # ty: ignore[invalid-type-form]
     def _can_declare(self) -> bool: ...
+    @override
     def __eq__(self, other: object) -> bool: ...
+    @override
     def __ne__(self, other: object) -> bool: ...
+    @override
     def __hash__(self) -> int: ...
 
 class Queue(MaybeChannelBound):
@@ -170,8 +175,11 @@ class Queue(MaybeChannelBound):
     def _create_bindings(
         self, nowait: bool = ..., channel: StdChannel | None = ...
     ) -> None: ...
+    @override
     def __eq__(self, other: object) -> bool: ...
+    @override
     def __ne__(self, other: object) -> bool: ...
+    @override
     def __hash__(self) -> int: ...
 
 class binding(Object):

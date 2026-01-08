@@ -1,11 +1,14 @@
 from logging import Logger
 
 import click
+from typing_extensions import override
+
 from celery.app.base import Celery
 from celery.bin.base import CeleryDaemonCommand
 
 class Autoscale(click.ParamType):
     name: str
+    @override
     def convert(
         self,
         value: str | None,
@@ -15,6 +18,7 @@ class Autoscale(click.ParamType):
 
 class CeleryBeat(click.ParamType):
     name: str
+    @override
     def convert(
         self,
         value: str | None,

@@ -2,6 +2,8 @@ from collections.abc import Callable
 from typing import Any, ClassVar
 
 import kombu
+from typing_extensions import override
+
 from celery.app.base import Celery
 from celery.bootsteps import Blueprint, StartStopStep
 from vine.promises import promise
@@ -13,6 +15,7 @@ class Evloop(StartStopStep):
     label: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     def patch_all(self, c: Any) -> None: ...
+    @override
     def start(self, c: Any) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
 def dump_body(m: Any, body: Any) -> str: ...

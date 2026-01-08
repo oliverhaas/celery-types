@@ -1,6 +1,8 @@
 from collections.abc import Callable
 from typing import Any, ClassVar
 
+from typing_extensions import override
+
 from celery.bootsteps import ConsumerStep
 
 __all__ = ("Gossip",)
@@ -17,17 +19,24 @@ class Gossip(ConsumerStep):
         heartbeat_interval: float = 2.0,
         **kwargs: Any,
     ) -> None: ...
+    @override
     def create(self, parent: Any) -> Any: ...
+    @override
     def start(self, c: Any) -> None: ...  # ty: ignore[invalid-method-override]
+    @override
     def stop(self, c: Any) -> None: ...  # ty: ignore[invalid-method-override]
+    @override
     def shutdown(self, c: Any) -> None: ...
+    @override
     def include_if(self, parent: Any) -> bool: ...
+    @override
     def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     def call_task(self, task: Any) -> Any: ...
     def compatible_transport(self, app: Any) -> bool: ...
     def election(
         self, id: str, topic: str, action: Callable[..., Any] | None = None
     ) -> None: ...
+    @override
     def get_consumers(self, channel: Any) -> list[Any]: ...
     def on_elect(self, event: Any) -> None: ...
     def on_elect_ack(self, event: Any) -> None: ...

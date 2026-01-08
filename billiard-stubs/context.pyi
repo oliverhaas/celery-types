@@ -42,6 +42,8 @@ from multiprocessing.synchronize import (
 )
 from typing import Any
 
+from typing_extensions import override
+
 from billiard import process
 from billiard.connection import Connection
 from billiard.exceptions import (
@@ -144,6 +146,7 @@ class DefaultContext(BaseContext):
     __all__: list[str]
     def __init__(self, context: BaseContext) -> None: ...
     def get_all_start_methods(self) -> list[str]: ...
+    @override
     def set_start_method(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, force: bool = ...
     ) -> None: ...

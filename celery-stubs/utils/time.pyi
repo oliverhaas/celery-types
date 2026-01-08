@@ -4,6 +4,8 @@ from time import struct_time
 from types import ModuleType
 from typing import Any
 
+from typing_extensions import override
+
 __all__ = (
     "LocalTimezone",
     "adjust_timestamp",
@@ -26,9 +28,13 @@ __all__ = (
 )
 
 class LocalTimezone(tzinfo):
+    @override
     def utcoffset(self, dt: datetime | None) -> timedelta: ...
+    @override
     def dst(self, dt: datetime | None) -> timedelta: ...
+    @override
     def tzname(self, dt: datetime | None) -> str: ...
+    @override
     def fromutc(self, dt: datetime) -> datetime: ...
 
 class _Zone:

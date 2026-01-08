@@ -1,5 +1,7 @@
 from typing import Any
 
+from typing_extensions import override
+
 from celery.backends.base import Backend
 
 __all__ = ("MongoBackend",)
@@ -25,4 +27,5 @@ class MongoBackend(Backend):
     @property
     def expires_delta(self) -> float: ...
     def __init__(self, app: Any = None, **kwargs: Any) -> None: ...
+    @override
     def decode(self, data: Any) -> Any: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]

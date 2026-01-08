@@ -10,8 +10,11 @@ class StepFormatter(GraphFormatter):
     blueprint_prefix: str
     conditional_prefix: str
     blueprint_scheme: dict[str, str]
+    @override
     def label(self, step: Any) -> Any: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
+    @override
     def node(self, obj: Any, **attrs: Any) -> Any: ...
+    @override
     def edge(self, a: Any, b: Any, **attrs: Any) -> Any: ...
 
 class Blueprint:

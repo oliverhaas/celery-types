@@ -1,13 +1,18 @@
 from typing import Any
 
+from typing_extensions import override
+
 from celery.concurrency.base import BasePool
 
 __all__ = ("TaskPool",)
 
 class TaskPool(BasePool):
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    @override
     def on_start(self) -> None: ...
+    @override
     def on_stop(self) -> None: ...
+    @override
     def on_apply(
         self,
         target: Any,

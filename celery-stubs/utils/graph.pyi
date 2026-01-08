@@ -1,6 +1,8 @@
 from collections.abc import Iterable, Iterator
 from typing import IO, Any
 
+from typing_extensions import override
+
 __all__ = ("DOT", "CycleError", "DependencyGraph", "GraphFormatter")
 
 class DOT:
@@ -67,5 +69,6 @@ class DependencyGraph(dict[Any, Any]):
     def repr_node(self, obj: Any, level: int = 1, fmt: str = "{0}({1})") -> str: ...
     def to_dot(self, fh: IO[str], formatter: GraphFormatter | None = None) -> None: ...
     def topsort(self) -> list[Any]: ...
+    @override
     def update(self, it: Iterable[Any]) -> None: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     def valency_of(self, obj: Any) -> int: ...

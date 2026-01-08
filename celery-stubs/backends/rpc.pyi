@@ -1,6 +1,8 @@
 from typing import Any
 
 import kombu
+from typing_extensions import override
+
 from celery.backends.asynchronous import BaseResultConsumer
 from celery.backends.base import Backend
 from kombu.utils.objects import cached_property
@@ -36,11 +38,13 @@ class RPCBackend(Backend):
     def on_reply_declare(self, task_id: str) -> Any: ...
     def on_result_fulfilled(self, result: Any) -> None: ...
     def on_out_of_band_result(self, task_id: str, message: Any) -> None: ...
+    @override
     def get_task_meta(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self, task_id: str, backlog_limit: int = 1000
     ) -> dict[str, Any]: ...
     def poll(
         self, task_id: str, backlog_limit: int = 1000
     ) -> dict[str, Any] | None: ...
+    @override
     def reload_group_result(self, task_id: str) -> Any: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
     def revive(self, channel: Any) -> None: ...

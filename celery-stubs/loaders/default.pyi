@@ -1,5 +1,7 @@
 from typing import Any
 
+from typing_extensions import override
+
 from celery.loaders.base import BaseLoader
 
 __all__ = ("DEFAULT_CONFIG_MODULE", "Loader")
@@ -7,6 +9,7 @@ __all__ = ("DEFAULT_CONFIG_MODULE", "Loader")
 DEFAULT_CONFIG_MODULE: str
 
 class Loader(BaseLoader):
+    @override
     def read_configuration(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self,
         fail_silently: bool = True,  # type: ignore[override]
