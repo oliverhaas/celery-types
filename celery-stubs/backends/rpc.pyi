@@ -1,11 +1,10 @@
 from typing import Any
 
 import kombu
-from typing_extensions import override
-
 from celery.backends.asynchronous import BaseResultConsumer
 from celery.backends.base import Backend
 from kombu.utils.objects import cached_property
+from typing_extensions import override
 
 __all__ = ("BacklogLimitExceeded", "RPCBackend")
 

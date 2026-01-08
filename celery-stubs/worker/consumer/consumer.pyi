@@ -2,10 +2,9 @@ from collections.abc import Callable
 from typing import Any, ClassVar
 
 import kombu
-from typing_extensions import override
-
 from celery.app.base import Celery
 from celery.bootsteps import Blueprint, StartStopStep
+from typing_extensions import override
 from vine.promises import promise
 
 __all__ = ("Consumer", "Evloop", "dump_body")

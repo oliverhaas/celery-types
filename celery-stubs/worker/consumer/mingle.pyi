@@ -1,8 +1,7 @@
 from typing import Any, ClassVar
 
-from typing_extensions import override
-
 from celery.bootsteps import Step
+from typing_extensions import override
 
 __all__ = ("Mingle",)
 

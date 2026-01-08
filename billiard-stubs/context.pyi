@@ -42,8 +42,6 @@ from multiprocessing.synchronize import (
 )
 from typing import Any
 
-from typing_extensions import override
-
 from billiard import process
 from billiard.connection import Connection
 from billiard.exceptions import (
@@ -53,6 +51,7 @@ from billiard.exceptions import (
 )
 from billiard.pool import Pool as _Pool
 from billiard.process import BaseProcess
+from typing_extensions import override
 
 __all__: list[str] = []
 

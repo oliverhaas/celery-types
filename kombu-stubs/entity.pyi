@@ -1,11 +1,10 @@
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
-from typing_extensions import override
-
 from kombu.abstract import MaybeChannelBound, Object
 from kombu.message import Message as _Message
 from kombu.transport.base import StdChannel
+from typing_extensions import override
 
 __all__ = ("Exchange", "Queue", "binding", "maybe_delivery_mode")
 

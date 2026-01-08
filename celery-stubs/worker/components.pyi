@@ -1,8 +1,7 @@
 from typing import Any
 
-from typing_extensions import override
-
 from celery import bootsteps
+from typing_extensions import override
 
 __all__ = ("Beat", "Consumer", "Hub", "Pool", "StateDB", "Timer")
 

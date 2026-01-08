@@ -1,8 +1,7 @@
 from typing import Any
 
-from typing_extensions import override
-
 from celery.backends.base import Backend
+from typing_extensions import override
 
 __all__ = ("MongoBackend",)
 

@@ -1,10 +1,9 @@
 from logging import Logger
 
 import click
-from typing_extensions import override
-
 from celery.app.base import Celery
 from celery.bin.base import CeleryDaemonCommand
+from typing_extensions import override
 
 class Autoscale(click.ParamType):
     name: str

@@ -1,9 +1,8 @@
 from collections.abc import Callable
 from typing import Any
 
-from typing_extensions import override
-
 from celery.concurrency.base import BasePool
+from typing_extensions import override
 
 __all__ = ("TaskPool",)
 

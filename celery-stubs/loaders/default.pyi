@@ -1,8 +1,7 @@
 from typing import Any
 
-from typing_extensions import override
-
 from celery.loaders.base import BaseLoader
+from typing_extensions import override
 
 __all__ = ("DEFAULT_CONFIG_MODULE", "Loader")
 

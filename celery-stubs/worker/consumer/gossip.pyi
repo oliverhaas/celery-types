@@ -1,9 +1,8 @@
 from collections.abc import Callable
 from typing import Any, ClassVar
 
-from typing_extensions import override
-
 from celery.bootsteps import ConsumerStep
+from typing_extensions import override
 
 __all__ = ("Gossip",)
 
