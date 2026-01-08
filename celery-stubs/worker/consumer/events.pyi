@@ -5,7 +5,7 @@ from celery.bootsteps import Step
 __all__ = ("Events",)
 
 class Events(Step):
-    name: ClassVar[str]
+    name: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     def __init__(
         self,
@@ -20,4 +20,4 @@ class Events(Step):
     def stop(self, c: Any) -> None: ...
     def shutdown(self, c: Any) -> None: ...
     def include_if(self, parent: Any) -> bool: ...
-    def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]
+    def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]

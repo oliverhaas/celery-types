@@ -186,9 +186,9 @@ class EagerResult(AsyncResult[_R_co]):
         name: str | None = ...,
     ) -> None: ...
     def __copy__(self) -> EagerResult[_R_co]: ...
-    def __reduce_args__(self) -> tuple[str, _R_co, str, str | None]: ...  # type: ignore[override]
+    def __reduce_args__(self) -> tuple[str, _R_co, str, str | None]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     @override
-    def get(  # type: ignore[override]
+    def get(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         timeout: float | None = ...,
         propagate: bool = ...,
@@ -196,7 +196,7 @@ class EagerResult(AsyncResult[_R_co]):
         **kwargs: Any,
     ) -> _R_co: ...
     @override
-    def wait(  # type: ignore[override]
+    def wait(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         timeout: float | None = ...,
         propagate: bool = ...,

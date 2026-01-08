@@ -14,7 +14,7 @@ class RedisBackend(KeyValueStoreBackend):
     max_connections: int | None
     redis: Any  # redis module
 
-    retry_policy: cached_property[dict[str, Any]]
+    retry_policy: cached_property[dict[str, Any]]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     @property
     def ConnectionPool(self) -> Any: ...
@@ -37,7 +37,7 @@ class RedisBackend(KeyValueStoreBackend):
     def on_connection_error(
         self, max_retries: int, exc: Exception, intervals: Iterable[float], retries: int
     ) -> None: ...
-    def add_to_chord(self, group_id: str, result: Any) -> None: ...  # ty: ignore[invalid-method-override]
+    def add_to_chord(self, group_id: str, result: Any) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
     def on_chord_part_return(
         self,
         request: Any,

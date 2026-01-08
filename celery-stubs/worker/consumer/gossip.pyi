@@ -6,7 +6,7 @@ from celery.bootsteps import ConsumerStep
 __all__ = ("Gossip",)
 
 class Gossip(ConsumerStep):
-    name: ClassVar[str]
+    name: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
     compatible_transports: set[str]
 
     def __init__(
@@ -22,7 +22,7 @@ class Gossip(ConsumerStep):
     def stop(self, c: Any) -> None: ...  # ty: ignore[invalid-method-override]
     def shutdown(self, c: Any) -> None: ...
     def include_if(self, parent: Any) -> bool: ...
-    def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]
+    def info(self, obj: Any) -> dict[str, Any]: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     def call_task(self, task: Any) -> Any: ...
     def compatible_transport(self, app: Any) -> bool: ...
     def election(

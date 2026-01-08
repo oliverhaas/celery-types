@@ -248,7 +248,7 @@ class _chain(Signature[Any]):
         headers: dict[str, str] = ...,
     ) -> None: ...
     @override
-    def apply_async(  # type: ignore[override]
+    def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         args: tuple[Any, ...] | None = ...,
         kwargs: dict[str, Any] | None = ...,
@@ -326,7 +326,7 @@ class _basemap(Signature[Any]):
         headers: dict[str, str] = ...,
     ) -> None: ...
     @override
-    def apply_async(  # type: ignore[override]
+    def apply_async(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         args: tuple[Any, ...] | None = ...,
         kwargs: dict[str, Any] | None = ...,

@@ -12,7 +12,7 @@ class CouchbaseBackend(KeyValueStoreBackend):
     password: str | None
     quiet: bool
     timeout: float
-    key_t: type[str]  # type: ignore[assignment]
+    key_t: type[str]  # type: ignore[assignment]  # pyright: ignore[reportIncompatibleMethodOverride]
 
     @property
     def connection(self) -> Any: ...

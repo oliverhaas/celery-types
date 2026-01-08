@@ -9,11 +9,11 @@ from vine.promises import promise
 __all__ = ("Consumer", "Evloop", "dump_body")
 
 class Evloop(StartStopStep):
-    name: ClassVar[str]
-    label: ClassVar[str]
+    name: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
+    label: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     def patch_all(self, c: Any) -> None: ...
-    def start(self, c: Any) -> None: ...  # ty: ignore[invalid-method-override]
+    def start(self, c: Any) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
 def dump_body(m: Any, body: Any) -> str: ...
 

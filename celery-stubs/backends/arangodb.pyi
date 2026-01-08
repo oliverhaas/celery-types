@@ -13,7 +13,7 @@ class ArangoDbBackend(KeyValueStoreBackend):
     username: str | None
     password: str | None
     verify: bool
-    key_t: type[str]  # type: ignore[assignment]
+    key_t: type[str]  # type: ignore[assignment]  # pyright: ignore[reportIncompatibleMethodOverride]
 
     @property
     def connection(self) -> Any: ...

@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from typing import Any
 
 __all__ = ("CallableSignature", "CallableTask")
@@ -15,7 +15,7 @@ class CallableTask(metaclass=ABCMeta):
     @classmethod
     def register(cls, other: type) -> type: ...
 
-class CallableSignature(CallableTask):
+class CallableSignature(CallableTask, ABC):
     __required_attributes__: frozenset[str]
 
     @property

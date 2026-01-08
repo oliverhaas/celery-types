@@ -5,7 +5,7 @@ from celery.bootsteps import Step
 __all__ = ("DelayedDelivery",)
 
 class DelayedDelivery(Step):
-    name: ClassVar[str]
+    name: ClassVar[str]  # pyright: ignore[reportIncompatibleVariableOverride]
 
-    def include_if(self, c: Any) -> bool: ...  # ty: ignore[invalid-method-override]
+    def include_if(self, c: Any) -> bool: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
     def start(self, c: Any) -> None: ...
