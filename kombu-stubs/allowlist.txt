@@ -1,0 +1,15 @@
+# Kombu stubtest allowlist
+# ========================
+
+# librabbitmq is an optional C extension that may not be installed.
+# The transport module exists but requires the librabbitmq package.
+kombu.transport.librabbitmq
+
+# gcpubsub.Transport.channel_errors has a complex runtime type that's
+# a dynamically constructed tuple of exception classes from google-cloud-pubsub.
+# We simplify this to tuple[type[Exception], ...] in the stub.
+kombu.transport.gcpubsub.Transport.channel_errors
+
+# reprkwargs is listed in kombu.utils.__all__ but not actually defined.
+# This is a bug in kombu - the function was removed but __all__ wasn't updated.
+kombu.utils.reprkwargs
