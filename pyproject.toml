@@ -59,6 +59,7 @@ dev = [
     "pycurl>=7.45.7",
     "confluent-kafka>=2.12.2",
     "google-cloud-monitoring>=2.28.0",
+    "kombu>=5.6.2",
 ]
 
 
