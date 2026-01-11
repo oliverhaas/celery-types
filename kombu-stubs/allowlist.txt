@@ -8,6 +8,3 @@ kombu.transport.librabbitmq
 # a dynamically constructed tuple of exception classes from google-cloud-pubsub.
 # We simplify this to tuple[type[Exception], ...] in the stub.
 kombu.transport.gcpubsub.Transport.channel_errors
-
-# reprkwargs is in kombu.utils.__all__ but not actually defined (kombu bug).
-kombu.utils.__all__
