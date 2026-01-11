@@ -24,10 +24,12 @@ kombu.asynchronous.timer.Entry.__gt__
 kombu.asynchronous.timer.Entry.__le__
 
 # -----------------------------------------------------------------------------
-# Type annotation mismatches
+# Lock type mismatches (Python < 3.13)
 # -----------------------------------------------------------------------------
+# threading.Lock was a factory function (allocate_lock) until Python 3.13,
+# where it became a proper class. The stub types Lock as a class to match
+# typeshed and user expectations for type annotations.
 
-# Lock parameter: runtime default is allocate_lock function, stub uses type[Lock]
 kombu.clocks.LamportClock.__init__
 
 # -----------------------------------------------------------------------------

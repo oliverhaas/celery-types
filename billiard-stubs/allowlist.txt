@@ -9,9 +9,12 @@
 billiard.popen_spawn_win32
 
 # -----------------------------------------------------------------------------
-# Lock type mismatches
+# Lock type mismatches (Python < 3.13)
 # -----------------------------------------------------------------------------
-# These are typed as type[LockType] but runtime is allocate_lock function.
+# threading.Lock was a factory function (allocate_lock) until Python 3.13,
+# where it became a proper class. Since CI runs on Python 3.10, stubtest sees
+# the function while the stub types it as a class (matching typeshed and user
+# expectations for type annotations).
 
 billiard.dummy.Lock
 billiard.pool.Lock
