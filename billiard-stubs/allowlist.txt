@@ -1,2 +1,32 @@
+# Billiard stubtest allowlist
+# ===========================
+
+# -----------------------------------------------------------------------------
+# Platform-specific modules
+# -----------------------------------------------------------------------------
+
 # billiard.popen_spawn_win32 is Windows-only and cannot be tested on Linux
 billiard.popen_spawn_win32
+
+# -----------------------------------------------------------------------------
+# Lock type mismatches
+# -----------------------------------------------------------------------------
+# These are typed as type[LockType] but runtime is allocate_lock function.
+
+billiard.dummy.Lock
+billiard.pool.Lock
+
+# -----------------------------------------------------------------------------
+# Python version differences
+# -----------------------------------------------------------------------------
+# co_positions was added in Python 3.11, not present in 3.10.
+
+billiard.einfo._Code.co_positions
+billiard.einfo._Frame.co_positions
+
+# -----------------------------------------------------------------------------
+# Disjoint base classes
+# -----------------------------------------------------------------------------
+# AuthenticationString uses __slots__ which makes it a disjoint base.
+
+billiard.process.AuthenticationString
