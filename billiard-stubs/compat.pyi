@@ -16,8 +16,6 @@ def send_offset(fd: int, buf: ReadableBuffer, offset: int) -> int: ...
 fsencode = os.fsencode
 fsdecode = os.fsdecode
 
-# Note: MaybeFileNo is only used internally, not exported at runtime
-# but we need it for type annotations
 _MaybeFileNo: TypeAlias = numbers.Integral | io.IOBase
 
 def maybe_fileno(f: _MaybeFileNo) -> numbers.Integral: ...
