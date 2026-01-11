@@ -139,9 +139,3 @@ celery.utils.timer2.Entry.__ge__
 celery.utils.timer2.Entry.__gt__
 celery.utils.timer2.Entry.__le__
 
-# -----------------------------------------------------------------------------
-# Django contrib (Python 3.10 import issues)
-# -----------------------------------------------------------------------------
-# Django integration may fail to import on some Python versions.
-
-celery.contrib.django.task
