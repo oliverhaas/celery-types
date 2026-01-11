@@ -17,8 +17,11 @@ class _Code:
     co_nlocals: int
     co_stacksize: int
     co_varnames: tuple[()]
+    co_qualname: str
 
     def __init__(self, code: Any) -> None: ...
+    @property
+    def co_positions(self) -> Any: ...
 
 class _Frame:
     Code = _Code
@@ -36,6 +39,8 @@ class _Frame:
     f_restricted: bool
 
     def __init__(self, frame: Any) -> None: ...
+    @property
+    def co_positions(self) -> Any: ...
 
 class Traceback:
     Frame = _Frame

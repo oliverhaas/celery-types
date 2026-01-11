@@ -81,7 +81,7 @@ module-root = ""
 
 [tool.basedpyright]
 typeCheckingMode = "recommended"
-pythonVersion = "3.10"
+pythonVersion = "3.14"
 
 reportAny = false
 reportExplicitAny = false
